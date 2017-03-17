@@ -7,12 +7,41 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>welcome</ion-title>
+    <ion-title *ngIf='showRegister'>Registro</ion-title>
+    <ion-title *ngIf='!showRegister'>Login</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <form [formGroup]="myForm" (ngSubmit)="continue()">
+
+  <ion-item *ngIf='showRegister'>
+    <ion-label floating>Nombre</ion-label>
+    <ion-input formControlName="name"   type="text" value=""></ion-input>
+  </ion-item>
+    <p *ngIf="showRegister && name.hasError('required') && name.touched" color="danger" padding-left>El nombre es requerido</p>
+  
+  <ion-item >
+    <ion-label floating>Correo</ion-label>
+    <ion-input formControlName="email" type="email" value=""></ion-input>
+  </ion-item>
+    <p *ngIf="email.hasError('required') && email.touched" color="danger" padding-left>El email es requerido</p>
+    <p *ngIf="email.hasError('pattern') && email.touched" color="danger" padding-left>El formato del correo no es correcto</p>  
+  <ion-item>
+    <ion-label floating>Contraseña</ion-label>
+    <ion-input formControlName="password" type="password"></ion-input>
+  </ion-item>
+    <p *ngIf="password.hasError('required') && password.touched" color="danger" padding-left>La contraseña es requerido</p>    
+    <p *ngIf="password.hasError('pattern') && password.touched" color="danger" padding-left>Debe contener al menos un caracter especial</p>    
+    <p *ngIf="wrongData" color="danger" padding-left>Correo y/o contraseña incorrectos</p>
+  
+  <ion-item>
+    <ion-label> No tengo cuenta</ion-label>
+    <ion-toggle (ionChange)='changed()' formControlName='register' ></ion-toggle>
+  </ion-item>
+  <button ion-button center round outline type="submit">Continuar</button>
+
+  </form>
 
 </ion-content>
