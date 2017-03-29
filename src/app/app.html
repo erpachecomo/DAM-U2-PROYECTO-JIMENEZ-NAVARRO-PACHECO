@@ -1,1 +1,24 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item (click)="go(1)">
+        Pagina 1
+      </button>
+      <button menuClose ion-item (click)="go(2)">
+        Pagina 2
+      </button>
+      <button menuClose ion-item (click)="go(3)">
+        Pagina 3
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
 <ion-nav [root]="rootPage"></ion-nav>
