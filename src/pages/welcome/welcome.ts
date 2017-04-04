@@ -20,6 +20,7 @@ export class WelcomePage {
   
   //hola amiguitos jeje
   //Dale calma ese B|
+  //Funciona plox jejeje :v
 
 
   //fajksdhf asg dfoiahsd
