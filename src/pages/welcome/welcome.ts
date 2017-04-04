@@ -15,8 +15,9 @@ import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
 })
 export class WelcomePage {
   FB_APP_ID: number = 1750492968544998;
-  
-  
+  num: number = 4;
+  //fajksdhf asg dfoiahsd
+  //añslkdhfiasdhfasdf
   constructor(public navCtrl: NavController, public loadingCtrl:LoadingController) {
         Facebook.browserInit(this.FB_APP_ID, "v2.8");
   }
