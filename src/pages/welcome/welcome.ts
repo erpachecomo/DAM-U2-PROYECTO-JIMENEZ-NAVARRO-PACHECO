@@ -18,6 +18,10 @@ export class WelcomePage {
   constructor(public navCtrl: NavController, public loadingCtrl:LoadingController) {
         Facebook.browserInit(this.FB_APP_ID, "v2.8");
 
+  constructor(public navCtrl: NavController, public loadingCtrl:LoadingController) {
+        Facebook.browserInit(this.FB_APP_ID, "v2.8");
+
+
   }
   continue(){
     let nav = this.navCtrl;
