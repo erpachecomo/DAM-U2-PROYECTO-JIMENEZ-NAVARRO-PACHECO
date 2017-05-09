@@ -2,6 +2,7 @@ import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
+import { FacebookAuth, GoogleAuth, User } from '@ionic/cloud-angular';
 
 /*
   Generated class for the Welcome page.
@@ -14,10 +15,10 @@ import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
   templateUrl: 'welcome.html'
 })
 export class WelcomePage {
-  FB_APP_ID: number = 1750492968544998;
-  constructor(public navCtrl: NavController, public loadingCtrl:LoadingController) {
-        Facebook.browserInit(this.FB_APP_ID, "v2.8");
-
+  //FB_APP_ID: number = 1750492968544998;
+  constructor(public googleAuth: GoogleAuth,public facebookAuth: FacebookAuth, public user: User,public navCtrl: NavController, 
+  public loadingCtrl:LoadingController) {
+        //Facebook.browserInit(this.FB_APP_ID, "v2.8");
   }
   continue(){
     let nav = this.navCtrl;
@@ -27,82 +28,54 @@ export class WelcomePage {
         })
         .then(function(){
           console.log("HOMEPAGE");
-          nav.push(HomePage);
+          nav.setRoot(HomePage);
         }, function (error) {
           console.log(JSON.stringify(error));
-        })
+        });
   }
   ionViewDidLoad() {
   }
   doFbLogin(){
-    console.log("Hello");
-    let permissions = new Array();  
     let nav = this.navCtrl;
-    //the permissions your facebook app needs from the user
-    permissions = ["public_profile"];
 
-      console.log(JSON.stringify(permissions));
-
-    Facebook.login(permissions)
-    .then(function(response){
-      console.log(JSON.stringify(response));
-      let userId = response.authResponse.userID;
-      let params = new Array();
-
-      //Getting name and gender properties
-      Facebook.api("/me?fields=name,gender", params)
-      .then(function(user) {
+    this.facebookAuth.login().then((data)=>{
       
-
-        user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-        //now we have the users info, let's save it in the NativeStorage
-        NativeStorage.setItem('user',
+      NativeStorage.setItem('user',
         {
-          name: user.name,
-          gender: user.gender,
-          picture: user.picture
+          name: this.user.social.facebook.data.full_name,
+          username: this.user.social.facebook.data.username,
+          picture: this.user.social.facebook.data.profile_picture
         })
         .then(function(){
           console.log("HOMEPAGE");
-          nav.push(HomePage);
+          nav.setRoot(HomePage);
         }, function (error) {
           console.log(JSON.stringify(error));
         })
-      })
-    }, function(error){
-      console.log(JSON.stringify(error));
     });
   }
 
   doGoogleLogin(){
   let nav = this.navCtrl;
-  let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
-  });
-  loading.present();
-  GooglePlus.login({
-    'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-    'webClientId': '19993281606-npcoekmi8kje4ljdj3or2c0q3blhnnee.apps.googleusercontent.com', 
-    'offline': true
-  })
-  .then(function (user) {
-    loading.dismiss();
 
-    NativeStorage.setItem('user', {
-      name: user.displayName,
-      email: user.email,
-      picture: user.imageUrl
-    })
-    .then(function(){
-      nav.push(HomePage);
-    }, function (error) {
-      console.log('Algo paso');
-      console.log(JSON.stringify(error));
-    })
-  }, function (error) {
-    console.log(JSON.stringify(error));
-    loading.dismiss();
-  });
+    this.googleAuth.login().then((data)=>{
+      
+      NativeStorage.setItem('user',
+        {
+          name: this.user.social.google.data.full_name,
+          username: this.user.social.google.data.username,
+          picture: this.user.social.google.data.profile_picture
+        })
+        .then(function(){
+          console.log("HOMEPAGE");
+          nav.setRoot(HomePage);
+        }, function (error) {
+          console.log('Error google login');
+          console.log(JSON.stringify(error));
+        })
+    },err=>{
+          console.log(JSON.stringify(err));
+    });
 }
 
 
