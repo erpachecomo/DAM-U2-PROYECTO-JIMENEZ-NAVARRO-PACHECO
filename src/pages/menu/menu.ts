@@ -24,7 +24,7 @@ addDish(){
     message: "Ingresa el nombre del platillo",
     inputs: [
       {
-        name: 'nombre',
+        name: 'name',
         placeholder: 'Nombre'
       },
     ],
@@ -38,6 +38,7 @@ addDish(){
       {
         text: 'Guardar',
         handler: data => {
+          console.log("Guardando...");
           console.log(JSON.stringify(data));
           this.dishes.push({
             name: data.name

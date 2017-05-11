@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AngularFireModule } from 'angularfire2';
 
+
 export const firebaseConfig = {
     apiKey: "AIzaSyDklHeVcowOdSz0Xt8GFxzGhPb18HUGOls",
     authDomain: "fir-poktli.firebaseapp.com",
