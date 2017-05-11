@@ -38,6 +38,7 @@ addDish(){
       {
         text: 'Guardar',
         handler: data => {
+          console.log(JSON.stringify(data));
           this.dishes.push({
             name: data.name
           });
