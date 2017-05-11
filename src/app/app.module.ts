@@ -4,21 +4,15 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import {CloudSettings,CloudModule} from '@ionic/cloud-angular'
+import { AngularFireModule } from 'angularfire2';
 
-const cloudSettings: CloudSettings = {
-  'core': {
-    'app_id': 'e460466e'
-  },
-  'auth': {
-    'facebook': {
-      'scope': []
-    },
-    'google': {
-      'webClientId': '19993281606-v2o5pa8plpp84gpemnfftmktlc6nu9kv.apps.googleusercontent.com',
-      'scope':[]
-    }
-  }
+export const firebaseConfig = {
+    apiKey: "AIzaSyDklHeVcowOdSz0Xt8GFxzGhPb18HUGOls",
+    authDomain: "fir-poktli.firebaseapp.com",
+    databaseURL: "https://fir-poktli.firebaseio.com",
+    projectId: "firebase-poktli",
+    storageBucket: "firebase-poktli.appspot.com",
+    messagingSenderId: "19993281606"
 };
 
 @NgModule({
@@ -30,7 +24,8 @@ const cloudSettings: CloudSettings = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    CloudModule.forRoot(cloudSettings)
+        AngularFireModule.initializeApp(firebaseConfig)
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [

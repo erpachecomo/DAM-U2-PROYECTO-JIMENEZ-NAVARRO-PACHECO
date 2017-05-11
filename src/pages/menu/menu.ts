@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 
 /*
@@ -13,9 +14,11 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
   templateUrl: 'menu.html'
 })
 export class MenuPage {
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams) {
+dishes: FirebaseListObservable<any>;
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams) {
+      this.dishes = af.database.list('/dishes');
   }
-/*addDish(){
+addDish(){
   let prompt = this.alertCtrl.create({
     title: 'Nombre del platillo',
     message: "Ingresa el nombre del platillo",
@@ -43,7 +46,7 @@ export class MenuPage {
     ]
   });
   prompt.present();
-}*/
+}
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
   }
