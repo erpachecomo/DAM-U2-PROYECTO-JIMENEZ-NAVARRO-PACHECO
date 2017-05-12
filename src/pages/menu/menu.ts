@@ -49,6 +49,8 @@ addDish(){
   });
   prompt.present();
 }
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
   }
