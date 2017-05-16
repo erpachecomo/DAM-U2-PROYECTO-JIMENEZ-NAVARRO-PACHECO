@@ -44,7 +44,7 @@ export class MyApp {
         env.nav.push(HomePage);
       }, function (error) {
         //we don't have the user data so we will ask him to log in
-        env.nav.push(WelcomePage);
+        env.nav.setRoot(WelcomePage);
       });
       }, 2000);
     }
