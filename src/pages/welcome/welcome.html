@@ -15,24 +15,32 @@
 
 <ion-content padding>
   <ion-row>
-  <ion-col text-center>
-  <img src="./assets/logocirculo.png" width="40%"/>
-  </ion-col>
+    <ion-col text-center>
+      <img src="./assets/logocirculo.png" width="40%" />
+    </ion-col>
   </ion-row>
   <hr>
   <ion-row>
-  <ion-col text-center>
-  <button ion-button center round outline (click)="continue()">Continuar como invitado</button>
-    
-  </ion-col>
+    <ion-col text-center>
+<ion-item>
+  <ion-label floating>Usuario</ion-label>
+  <ion-input type="text" ></ion-input>
+</ion-item><ion-item>
+  <ion-label floating >Contraseña</ion-label>
+  <ion-input type="password" ></ion-input>
+</ion-item>
+      <button ion-button  center round outline (click)="continueAsAdmin()">Continuar como administrador</button>
+
+    </ion-col>
   </ion-row>
   <hr>
   <ion-row>
-  <ion-col text-center>
-   <button ion-button (click)="doFbLogin()" block>Entrar con Facebook</button>
-  <button ion-button block color="danger" (click)="doGoogleLogin()">Entrar con Google +</button>
-    
-  </ion-col>
+    <ion-col text-center>
+      <button ion-button center round outline >Continuar como invitado</button>
+      <button ion-button (click)="doFbLogin()" block>Entrar con Facebook</button>
+      <button ion-button block color="danger" (click)="doGoogleLogin()">Entrar con Google +</button>
+
+    </ion-col>
   </ion-row>
 
 </ion-content>

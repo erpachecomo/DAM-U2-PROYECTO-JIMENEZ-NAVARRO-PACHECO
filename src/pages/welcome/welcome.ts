@@ -1,4 +1,5 @@
 import { HomePage } from './../home/home';
+import { AdminPanelPage} from './../admin-panel/admin-panel';
 import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
@@ -15,20 +16,6 @@ import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
 })
 export class WelcomePage {
   FB_APP_ID: number = 1750492968544998;
-
-
-  
-  //hola amiguitos jeje
-  //Dale calma ese B|
-  //Funciona plox jejeje :v
-
-
-  //fajksdhf asg dfoiahsd
-  //añslkdhfiasdhfasdf
-
-
- 
- 
 
   constructor(public navCtrl: NavController, public loadingCtrl:LoadingController) {
         Facebook.browserInit(this.FB_APP_ID, "v2.8");
@@ -48,6 +35,13 @@ export class WelcomePage {
           console.log(JSON.stringify(error));
         })
   }
+continueAsAdmin(){
+    let nav = this.navCtrl;
+    nav.push(AdminPanelPage);
+}
+
+
+
   ionViewDidLoad() {
   }
   doFbLogin(){
