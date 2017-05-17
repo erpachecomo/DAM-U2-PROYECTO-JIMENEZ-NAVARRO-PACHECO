@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 
@@ -15,8 +15,34 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 })
 export class MenuPage {
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams) {
+  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
+  }
+   showOptions(dishId, dishTitle) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Opciones',
+      buttons: [
+        {
+          text: 'Borrar ',
+          role: 'destructive',
+          handler: () => {
+            //this.removeSong(songId);
+          }
+        },{
+          text: 'Update title',
+          handler: () => {
+            //this.updateSong(songId, songTitle);
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 addDish(){
   let prompt = this.alertCtrl.create({

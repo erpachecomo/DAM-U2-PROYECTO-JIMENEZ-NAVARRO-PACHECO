@@ -1,10 +1,11 @@
+import { firebaseConfig } from './app.module';
 
 import { WelcomePage } from './../pages/welcome/welcome';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar,NativeStorage,GooglePlus, Splashscreen } from 'ionic-native';
 import { HomePage } from '../pages/home/home';
-
+import firebase from 'firebase';
 
 
 @Component({
@@ -16,6 +17,9 @@ export class MyApp {
   rootPage = WelcomePage;
 
     constructor(platform: Platform) {
+    
+    firebase.initializeApp(firebaseConfig);
+
     platform.ready().then(() => {
       Splashscreen.hide();
       StatusBar.styleDefault();

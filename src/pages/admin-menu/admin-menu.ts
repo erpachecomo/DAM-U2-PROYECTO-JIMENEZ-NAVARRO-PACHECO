@@ -1,23 +1,24 @@
 import { NativeStorage } from 'ionic-native';
 import { WelcomePage } from './../welcome/welcome';
-import { MenuPage } from './../menu/menu';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import firebase from 'firebase';
+import { NavController, NavParams } from 'ionic-angular';
 
+/*
+  Generated class for the AdminMenu page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+*/
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-admin-menu',
+  templateUrl: 'admin-menu.html'
 })
-export class HomePage {
+export class AdminMenuPage {
 
-  constructor(public navCtrl: NavController) {
-    
-  }
-  logout(){
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+logout(){
     let nav=this.navCtrl;
     firebase.auth().signOut().then(function(){
-              console.log("AdminPanelPage");
               NativeStorage.setItem('user',
         {
           name: ""
@@ -31,9 +32,6 @@ export class HomePage {
             }, function (error) {
               console.log(JSON.stringify(error));
           });
-  }
-  abrirMenu(){
-    this.navCtrl.setRoot(MenuPage);
   }
 
 }

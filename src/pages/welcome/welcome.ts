@@ -2,7 +2,12 @@ import { HomePage } from './../home/home';
 import { AdminPanelPage} from './../admin-panel/admin-panel';
 import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
-import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
+import { NativeStorage,GooglePlus } from 'ionic-native';
+import { Facebook } from '@ionic-native/facebook';
+import firebase from 'firebase';
+
+
+
 
 /*
   Generated class for the Welcome page.
@@ -15,13 +20,11 @@ import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
   templateUrl: 'welcome.html'
 })
 export class WelcomePage {
-  FB_APP_ID: number = 1750492968544998;
-<<<<<<< HEAD
-
-=======
->>>>>>> 778afc097781c3461f135917eedff8c6665c1803
-  constructor(public navCtrl: NavController, public loadingCtrl:LoadingController) {
-        Facebook.browserInit(this.FB_APP_ID, "v2.8");
+  userProfile: any = null;
+  email:string='';
+  password:string='';
+  constructor(public navCtrl: NavController, private facebook:Facebook, public loadingCtrl:LoadingController) {
+        
 
   }
   continue(){
@@ -32,59 +35,59 @@ export class WelcomePage {
         })
         .then(function(){
           console.log("HOMEPAGE");
-          nav.push(HomePage);
+          nav.setRoot(HomePage);
         }, function (error) {
           console.log(JSON.stringify(error));
-        })
+        });
   }
 continueAsAdmin(){
-    let nav = this.navCtrl;
-    nav.push(AdminPanelPage);
+  let nav = this.navCtrl;
+  firebase.auth().signInWithEmailAndPassword(this.email, this.password).
+  then((success) => {
+            console.log("Firebase success: " + JSON.stringify(success));
+            this.userProfile = success;
+            NativeStorage.setItem('user',
+            {
+              name: this.userProfile.displayName,
+              picture: this.userProfile.photoURL
+            })
+            .then(function(){
+              console.log("AdminPanelPage");
+              nav.setRoot(AdminPanelPage);
+            }, function (error) {
+              console.log(JSON.stringify(error));
+          })
+        });
 }
 
-
-
-  ionViewDidLoad() {
-  }
   doFbLogin(){
-    console.log("Hello");
-    let permissions = new Array();  
-    let nav = this.navCtrl;
-    //the permissions your facebook app needs from the user
-    permissions = ["public_profile"];
-
-      console.log(JSON.stringify(permissions));
-
-    Facebook.login(permissions)
-    .then(function(response){
-      console.log(JSON.stringify(response));
-      let userId = response.authResponse.userID;
-      let params = new Array();
-
-      //Getting name and gender properties
-      Facebook.api("/me?fields=name,gender", params)
-      .then(function(user) {
-      
-
-        user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-        //now we have the users info, let's save it in the NativeStorage
-        NativeStorage.setItem('user',
-        {
-          name: user.name,
-          gender: user.gender,
-          picture: user.picture
+  let nav = this.navCtrl;
+  this.facebook.login(['email']).then( (response) => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider
+            .credential(response.authResponse.accessToken);
+        firebase.auth().signInWithCredential(facebookCredential)                                                                                                            
+        .then((success) => {
+            console.log("Firebase success: " + JSON.stringify(success));
+            this.userProfile = success;
+            NativeStorage.setItem('user',
+            {
+              name: this.userProfile.displayName,
+              picture: this.userProfile.photoURL
+            })
+            .then(function(){
+              console.log("HOMEPAGE");
+              nav.setRoot(HomePage);
+            }, function (error) {
+              console.log(JSON.stringify(error));
+          });
         })
-        .then(function(){
-          console.log("HOMEPAGE");
-          nav.push(HomePage);
-        }, function (error) {
-          console.log(JSON.stringify(error));
-        })
-      })
-    }, function(error){
-      console.log(JSON.stringify(error));
-    });
-  }
+        .catch((error) => {
+            console.log("Firebase failure: " + JSON.stringify(error));
+        });
+
+    }).catch((error) => { console.log(JSON.stringify(error)) });
+}
+
 
   doGoogleLogin(){
   let nav = this.navCtrl;
@@ -97,20 +100,31 @@ continueAsAdmin(){
     'webClientId': '19993281606-npcoekmi8kje4ljdj3or2c0q3blhnnee.apps.googleusercontent.com', 
     'offline': true
   })
-  .then(function (user) {
+  .then(function (response) {
+    console.log("RESPONSE:"+JSON.stringify(response));
     loading.dismiss();
-
-    NativeStorage.setItem('user', {
-      name: user.displayName,
-      email: user.email,
-      picture: user.imageUrl
-    })
-    .then(function(){
-      nav.push(HomePage);
-    }, function (error) {
-      console.log('Algo paso');
-      console.log(JSON.stringify(error));
-    })
+    const googleCredential = firebase.auth.GoogleAuthProvider.credential(response.idToken);
+    console.log("Google Credential"+googleCredential);
+    firebase.auth().signInWithCredential(googleCredential)
+        .then((success) => {
+            console.log("Firebase success: " + JSON.stringify(success));
+            this.userProfile = success;
+            NativeStorage.setItem('user',
+            {
+              name: this.userProfile.displayName,
+              picture: this.userProfile.photoURL
+            })
+            .then(function(){
+              console.log("HOMEPAGE");
+              nav.setRoot(HomePage);
+            }, function (error) {
+              console.log(JSON.stringify(error));
+          });
+        })
+        .catch((error) => {
+            console.log("Firebase failure: " + JSON.stringify(error));
+            nav.setRoot(HomePage);
+        });
   }, function (error) {
     console.log(JSON.stringify(error));
     loading.dismiss();
