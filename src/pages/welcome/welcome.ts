@@ -29,16 +29,21 @@ export class WelcomePage {
   }
   continue(){
     let nav = this.navCtrl;
-     NativeStorage.setItem('user',
+    firebase.auth().signInAnonymously().then(success=>{
+        NativeStorage.setItem('user',
         {
           name: "invitado"
         })
         .then(function(){
-          console.log("HOMEPAGE");
+          console.log("Invitado");
           nav.setRoot(HomePage);
-        }, function (error) {
-          console.log(JSON.stringify(error));
+        }, function (err) {
+          console.log("NativeStorage Invitado: "+JSON.stringify(err));
         });
+    },err=>{
+         console.log("NativeStorage Invitado: "+JSON.stringify(err));
+    });
+     
   }
 continueAsAdmin(){
   let nav = this.navCtrl;
@@ -123,7 +128,11 @@ continueAsAdmin(){
         })
         .catch((error) => {
             console.log("Firebase failure: " + JSON.stringify(error));
+            if(error==={}){
+            console.log("No Problema" + JSON.stringify(error));
+              
             nav.setRoot(HomePage);
+          }
         });
   }, function (error) {
     console.log(JSON.stringify(error));

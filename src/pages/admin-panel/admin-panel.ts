@@ -1,6 +1,9 @@
+import { WelcomePage } from './../welcome/welcome';
+import { AdminMenuPage } from './../admin-menu/admin-menu';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { EncodeDataPage} from './../encode-data/encode-data';
+import firebase from 'firebase';
 
 /*
   Generated class for the AdminPanel page.
@@ -16,13 +19,19 @@ export class AdminPanelPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminPanelPage');
-  }
-
   goToEncodeData(){
     let nav = this.navCtrl;
     nav.push(EncodeDataPage);
   }
 
+  goToMenu(){
+    let nav = this.navCtrl;
+    nav.push(AdminMenuPage);
+  }
+  logout(){
+    let nav=this.navCtrl;
+    firebase.auth().signOut().then(function(){
+          nav.setRoot(WelcomePage);
+    });
+  }
 }
