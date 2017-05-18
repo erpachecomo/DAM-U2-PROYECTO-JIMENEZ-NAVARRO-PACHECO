@@ -4,11 +4,11 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-<<<<<<< HEAD
+
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AdminPanelPage } from '../pages/admin-panel/admin-panel';
 import { EncodeDataPage } from '../pages/encode-data/encode-data';
-=======
+
 import { AngularFireModule } from 'angularfire2';
 
 
@@ -20,20 +20,16 @@ export const firebaseConfig = {
     storageBucket: "firebase-poktli.appspot.com",
     messagingSenderId: "19993281606"
 };
->>>>>>> 778afc097781c3461f135917eedff8c6665c1803
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-<<<<<<< HEAD
     AdminPanelPage,
     EncodeDataPage,
-    WelcomePage
-=======
     WelcomePage,
     MenuPage
->>>>>>> 778afc097781c3461f135917eedff8c6665c1803
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -44,14 +40,11 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     HomePage,
-<<<<<<< HEAD
     AdminPanelPage,
     EncodeDataPage,
-    WelcomePage
-=======
     WelcomePage,
     MenuPage
->>>>>>> 778afc097781c3461f135917eedff8c6665c1803
+
   ],
   providers:
    [ BarcodeScanner,
