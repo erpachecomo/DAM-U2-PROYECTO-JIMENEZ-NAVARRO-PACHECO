@@ -2,8 +2,9 @@ import { HomePage } from './../home/home';
 import { AdminPanelPage} from './../admin-panel/admin-panel';
 import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
-import { NativeStorage,GooglePlus } from 'ionic-native';
-import { Facebook } from '@ionic-native/facebook';
+//import { NativeStorage,GooglePlus } from 'ionic-native';
+//import { Facebook } from '@ionic-native/facebook';
+import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
 import firebase from 'firebase';
 
 
@@ -67,7 +68,7 @@ continueAsAdmin(){
 
   doFbLogin(){
   let nav = this.navCtrl;
-  this.facebook.login(['email']).then( (response) => {
+  Facebook.login(['email']).then( (response) => {
         const facebookCredential = firebase.auth.FacebookAuthProvider
             .credential(response.authResponse.accessToken);
         firebase.auth().signInWithCredential(facebookCredential)                                                                                                            
