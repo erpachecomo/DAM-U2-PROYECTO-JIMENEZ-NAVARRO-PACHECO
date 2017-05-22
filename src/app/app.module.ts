@@ -1,15 +1,17 @@
+import { AdminMenuPage } from './../pages/admin-menu/admin-menu';
 import { MenuPage } from './../pages/menu/menu';
 import { WelcomePage } from './../pages/welcome/welcome';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AdminPanelPage } from '../pages/admin-panel/admin-panel';
 import { EncodeDataPage } from '../pages/encode-data/encode-data';
-
 import { AngularFireModule } from 'angularfire2';
+//import { Facebook } from '@ionic-native/facebook'
+import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
+
 
 
 export const firebaseConfig = {
@@ -29,7 +31,9 @@ export const firebaseConfig = {
     AdminPanelPage,
     EncodeDataPage,
     WelcomePage,
-    MenuPage
+    MenuPage,
+    AdminMenuPage
+
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -43,11 +47,12 @@ export const firebaseConfig = {
     AdminPanelPage,
     EncodeDataPage,
     WelcomePage,
-    MenuPage
+    MenuPage,
+    AdminMenuPage
 
   ],
   providers:
-   [ BarcodeScanner,
+   [ BarcodeScanner,Facebook,
    {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
