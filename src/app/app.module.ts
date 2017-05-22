@@ -8,6 +8,8 @@ import { HomePage } from '../pages/home/home';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AdminPanelPage } from '../pages/admin-panel/admin-panel';
 import { EncodeDataPage } from '../pages/encode-data/encode-data';
+import { BillPage } from '../pages/bill/bill';
+import { BookPage } from '../pages/book/book';
 import { AngularFireModule } from 'angularfire2';
 //import { Facebook } from '@ionic-native/facebook'
 import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
@@ -31,6 +33,8 @@ export const firebaseConfig = {
     AdminPanelPage,
     EncodeDataPage,
     WelcomePage,
+    BookPage,
+    BillPage,
     MenuPage,
     AdminMenuPage
 
@@ -47,6 +51,8 @@ export const firebaseConfig = {
     AdminPanelPage,
     EncodeDataPage,
     WelcomePage,
+    BookPage,
+    BillPage,
     MenuPage,
     AdminMenuPage
 

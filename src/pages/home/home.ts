@@ -1,6 +1,8 @@
 import { NativeStorage } from 'ionic-native';
 import { WelcomePage } from './../welcome/welcome';
 import { MenuPage } from './../menu/menu';
+import { BillPage } from './../bill/bill';
+import { BookPage } from './../book/book';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import firebase from 'firebase';
@@ -36,12 +38,20 @@ export class HomePage {
   }
   abrirMenu() {
     this.navCtrl.setRoot(MenuPage);
-  }
+  }//abrirMenu
+
   abrirCuenta() {
     this.options = {
       prompt: 'Escanea un código para ver los resultados'
     }
 
     this.results = this.barcode.scan();
-  }
+    console.log("Clave: "+this.results);
+    this.navCtrl.setRoot(BillPage);
+
+  }//abrirCuenta
+abrirReservacion(){
+  this.navCtrl.setRoot(BookPage);
 }
+}
+
