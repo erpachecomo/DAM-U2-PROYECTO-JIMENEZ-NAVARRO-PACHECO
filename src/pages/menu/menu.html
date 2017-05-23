@@ -18,14 +18,14 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="card-background-page">
   <ion-list>
     
   <ion-item *ngFor="let dish of dishes | async" (click)="showOptions(dish.$key, dish.name)">
   <ion-card>
     <img [src]="dish.image"/>
-    <div class="card-title">{{dish.name}} - $ {{dish.price}}</div>
-    <div class="card-subtitle">{{dish.description}}</div>
+    <div class="card-title">{{dish.name}}</div>
+    <div class="card-subtitle">$ {{dish.price}} - {{dish.description}}</div>
   </ion-card>
   </ion-item>
   

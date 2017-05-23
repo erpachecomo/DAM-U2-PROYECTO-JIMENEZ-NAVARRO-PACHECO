@@ -4,6 +4,7 @@ import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
 import {ModalController, NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import firebase from 'firebase';
 
 /*
   Generated class for the AdminMenu page.
@@ -48,7 +49,7 @@ dishes: FirebaseListObservable<any>;
               });
           }
         },{
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');

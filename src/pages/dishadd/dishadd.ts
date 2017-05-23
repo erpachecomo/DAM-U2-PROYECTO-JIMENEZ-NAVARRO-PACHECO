@@ -3,6 +3,8 @@ import {  ViewController, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import firebase from 'firebase';
+
 
 
 
@@ -20,21 +22,33 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class DishaddPage {
 public dishesImages: any;
   public myPhoto: any;
-  public myPhotoURL: any;
+  public myPhotoURL: any='http://placehold.it/350?text=Poktli';
   dishes: FirebaseListObservable<any>;
   public name: any = "";
   public description: any="";
   public price: any="";
   public title: string="Añadir un platillo"
   public id: string="Añadir un platillo"
-  public image: any = "";
   public myForm: FormGroup;
   public isUpdate: boolean=false;
+  public photoReady: boolean=false;
 
  
   constructor(public camera: Camera,public navParams:NavParams,public formBuilder:FormBuilder, public viewCtrl:ViewController,public navCtrl: NavController, af: AngularFire) {
     this.dishesImages = firebase.storage().ref('/Dishes/');
     this.dishes = af.database.list('/dishes');
+    this.myForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      description: ['', Validators.required]
+    //  image: ['', Validators.required]
+    });
+
+    this.name = this.myForm.controls['name'];
+    this.description = this.myForm.controls['description'];
+    //this.image = this.myForm.controls['image'];
+    this.price = this.myForm.controls['price'];
+
     let id=navParams.get('id');
     console.log(id);
     if(id!=null){
@@ -47,30 +61,22 @@ public dishesImages: any;
     this.name.setValue(npName);
     this.price.setValue(npPrice);
     this.description.setValue(npDescription);
-    this.image.setValue(npImage);
+    console.log("Imagen :("+npImage);
+    //this.myPhotoURL=(npImage);
     this.id=id;
     this.isUpdate=true;
     }//if
 
-    this.myForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      price: ['', Validators.required],
-      description: ['', Validators.required],
-      image: ['', Validators.required]
-    });
-
-    this.name = this.myForm.controls['name'];
-    this.description = this.myForm.controls['description'];
-    this.image = this.myForm.controls['image'];
-    this.price = this.myForm.controls['price'];
+    
   }
 
   sendData() {
+    if(!this.photoReady){return;}
     let data = {
       name: this.name.value,
       price: this.price.value,
       description: this.description.value,
-      image: this.image.value
+      image: this.myPhotoURL
     };
     console.log(JSON.stringify(data));
     if(this.isUpdate){
@@ -120,7 +126,8 @@ public dishesImages: any;
       .putString(this.myPhoto, 'base64', { contentType: 'image/png' })
       .then((savedPicture) => {
         this.myPhotoURL = savedPicture.downloadURL;
-        console.log("Guardando...");
+        console.log("Guardando... "+this.myPhotoURL);
+        this.photoReady=true;
       });
   }
  

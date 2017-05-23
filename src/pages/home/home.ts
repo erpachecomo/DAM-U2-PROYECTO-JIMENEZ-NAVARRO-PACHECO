@@ -24,7 +24,7 @@ export class HomePage {
       console.log("AdminPanelPage");
       NativeStorage.setItem('user',
         {
-          name: ""
+          name: null
         })
         .then(function () {
           console.log("HOMEPAGE");

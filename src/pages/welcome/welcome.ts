@@ -22,8 +22,8 @@ import firebase from 'firebase';
 })
 export class WelcomePage {
   userProfile: any = null;
-  email:string='';
-  password:string='';
+  email:string='erpachecomo@ittepic.edu.mx';
+  password:string='poktli123';
   constructor(public navCtrl: NavController, private facebook:Facebook, public loadingCtrl:LoadingController) {
         
 
