@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+{{title}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancelar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="myForm" (ngSubmit)="sendData()">
+    <ion-item>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <p *ngIf="name.hasError('required') && name.touched" color="danger" padding-left>El nombre del platillo es requerido</p>
+    <ion-item>
+      <ion-label floating>Descripción</ion-label>
+      <ion-input type="text" formControlName="description"></ion-input>
+    </ion-item>
+    <p *ngIf="description.hasError('required') && description.touched" color="danger" padding-left>La descripción es requerida</p>
+    <ion-item>
+      <ion-label floating>Precio</ion-label>
+      <ion-input type="number" formControlName="price"></ion-input>
+    </ion-item>
+    <p *ngIf="price.hasError('required') && price.touched" color="danger" padding-left>El precio es requerido</p>
+    <ion-item>
+      <ion-label floating>Foto del platillo</ion-label>
+      <ion-card>
+          <img class="img-responsive" [src]="{{ image }}" />
+      </ion-card>
+      <ion-row>
+      <ion-col width-50>
+        <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
+          <ion-icon name="md-camera"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">
+          <ion-icon name="md-image"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    </ion-item>
+    <ion-fab bottom right>
+      <button ion-fab type="submit" [disabled]="!myForm.valid">
+          <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-fab>
+  </form>
+
+</ion-content>

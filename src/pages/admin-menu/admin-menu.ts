@@ -1,7 +1,8 @@
 import { NativeStorage } from 'ionic-native';
 import { WelcomePage } from './../welcome/welcome';
+import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
-import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
+import {ModalController, NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 /*
@@ -16,10 +17,10 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 })
 export class AdminMenuPage {
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams) {
+  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams,public modalCtrl: ModalController) {
       this.dishes = af.database.list('/dishes');
   }
-   showOptions(dishId, dishTitle) {
+   showOptions(id, name,description,price,image) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Opciones',
       buttons: [
@@ -30,9 +31,21 @@ dishes: FirebaseListObservable<any>;
             //this.removeSong(songId);
           }
         },{
-          text: 'Update title',
+          text: 'Actualizar platillo',
           handler: () => {
-            //this.updateSong(songId, songTitle);
+              let modal = this.modalCtrl.create(DishaddPage,{
+                id:id,
+                price:price,
+                description:description,
+                name:name,
+                image:image
+              });
+              modal.present().then(data=>{
+                console.log(data);
+              },
+              data=>{
+                console.log(data);
+              });
           }
         },{
           text: 'Cancel',
@@ -46,7 +59,15 @@ dishes: FirebaseListObservable<any>;
     actionSheet.present();
   }
 addDish(){
-  let prompt = this.alertCtrl.create({
+  let modal = this.modalCtrl.create(DishaddPage,{id:null});
+    modal.present().then(data=>{
+      console.log(data);
+    },
+    data=>{
+      console.log(data);
+    });
+    
+    /*let prompt = this.alertCtrl.create({
     title: 'Nombre del platillo',
     message: "Ingresa el nombre del platillo",
     inputs: [
@@ -61,6 +82,11 @@ addDish(){
       {
         name: 'price',
         placeholder: 'Precio',
+        type:'number'
+      },
+      {
+        name: 'image',
+        placeholder: 'Imagen',
         type:'number'
       }
     ],
@@ -86,7 +112,7 @@ addDish(){
       }
     ]
   });
-  prompt.present();
+  prompt.present();*/
 }
 
 
