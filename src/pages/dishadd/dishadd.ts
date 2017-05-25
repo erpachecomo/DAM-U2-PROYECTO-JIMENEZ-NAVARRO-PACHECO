@@ -84,13 +84,20 @@ public dishesImages: any;
       name: this.name,
       price: this.price,
       description: this.description,
-      image: this.myPhotoURL
+      image: this.myPhotoURL,
+      ingredients:['Sal','Limon','Tequila']
     };
     console.log(JSON.stringify(data));
     if(this.isUpdate){
-      this.dishes.update(this.id, data);
+      this.dishes.update(this.id, data).then(
+        (success)=>{
+          this.navCtrl.pop();
+        });
     }else{
-      this.dishes.push(data);
+      this.dishes.push(data).then(
+        (success)=>{
+          this.navCtrl.pop();
+        });
     }
 
   }

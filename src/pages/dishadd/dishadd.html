@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-navbar>
     <ion-title>
 {{title}}
     </ion-title>
@@ -12,73 +12,76 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-grid padding>
-    <ion-row>
-      <ion-col width-12>
+<ion-content padding>
+       
+    <ion-item>
+      
       <ion-label floating>Nombre</ion-label>
       <ion-input type="text" [(ngModel)]="name"></ion-input>
-      </ion-col>
-    </ion-row>
-      <ion-col width-12>
+      
+    </ion-item>
+      
     
     <p *ngIf="errorName" color="danger" padding-left>El nombre del platillo es requerido</p>
-      </ion-col>   
-    <ion-row>
-      <ion-col width-12>
+         
+    <ion-item>
+      
       
       <ion-label floating>Descripción</ion-label>
       <ion-input type="text" [(ngModel)]="description"></ion-input>
-      </ion-col>      
-    </ion-row>
-      <ion-col width-12>
+            
+    </ion-item>
+      
     
     <p *ngIf="errorDescription" color="danger" padding-left>La descripción es requerida</p>
-      </ion-col>
+      
     
-    <ion-row>
-      <ion-col width-12>
+    <ion-item>
+      
       
       <ion-label floating>Precio</ion-label>
       <ion-input type="number" [(ngModel)]="price"></ion-input>
-      </ion-col>
       
-    </ion-row>
-      <ion-col width-12>
+      
+    </ion-item>
+      
     
     <p *ngIf="errorPrice" color="danger" padding-left>El precio es requerido</p>
-      </ion-col>
+      
     
-    <ion-row>
-      <ion-col width-12>
+    <ion-item>
+      
       
       <img [src]="myPhotoURL" />
-      </ion-col>
       
-    </ion-row>    
-      <ion-col width-12>
+      
+    </ion-item>    
+      
     
     <p *ngIf="!photoReady" color="danger" padding-left>La imagen es requerida</p>
-      </ion-col>
+      
     
-    <ion-row>
+    <ion-item>
       <ion-col width-6>
       
         <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
           <ion-icon name="camera"></ion-icon>
         </button>
-      </ion-col>
+      
       <ion-col width-6>
       
         <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">
           <ion-icon name="image"></ion-icon>
         </button>
-      </ion-col>
+      
         
-    </ion-row>
-    <ion-fab bottom right>
-      <button ion-fab type="button" (click)="sendData()">
+    </ion-item>
+    
+      <ion-fab right bottom>
+
+      <button ion-fab (click)="sendData()">
           <ion-icon name="arrow-forward"></ion-icon>
       </button>
-    </ion-fab>
+      </ion-fab>
 
 </ion-content>

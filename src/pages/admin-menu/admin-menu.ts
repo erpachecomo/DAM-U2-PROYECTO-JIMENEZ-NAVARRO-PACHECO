@@ -2,7 +2,7 @@ import { NativeStorage } from 'ionic-native';
 import { WelcomePage } from './../welcome/welcome';
 import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
-import {ModalController, NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
+import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import firebase from 'firebase';
 
@@ -18,7 +18,7 @@ import firebase from 'firebase';
 })
 export class AdminMenuPage {
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams,public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
   }
    showOptions(id, name,description,price,image) {
@@ -34,19 +34,14 @@ dishes: FirebaseListObservable<any>;
         },{
           text: 'Actualizar platillo',
           handler: () => {
-              let modal = this.modalCtrl.create(DishaddPage,{
+            this.navCtrl.push(DishaddPage,{
                 id:id,
                 price:price,
                 description:description,
                 name:name,
                 image:image
               });
-              modal.present().then(data=>{
-                console.log(data);
-              },
-              data=>{
-                console.log(data);
-              });
+
           }
         },{
           text: 'Cancelar',
@@ -60,13 +55,9 @@ dishes: FirebaseListObservable<any>;
     actionSheet.present();
   }
 addDish(){
-  let modal = this.modalCtrl.create(DishaddPage,{id:null});
-    modal.present().then(data=>{
-      console.log(data);
-    },
-    data=>{
-      console.log(data);
-    });
+  this.navCtrl.push(DishaddPage,{
+                id:null
+              });
     
     /*let prompt = this.alertCtrl.create({
     title: 'Nombre del platillo',

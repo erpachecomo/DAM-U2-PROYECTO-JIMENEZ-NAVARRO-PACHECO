@@ -13,7 +13,7 @@ import { BillPage } from '../pages/bill/bill';
 import { BookPage } from '../pages/book/book';
 import { AngularFireModule } from 'angularfire2';
 //import { Facebook } from '@ionic-native/facebook'
-import { Facebook, NativeStorage,GooglePlus } from 'ionic-native';
+import { Facebook } from 'ionic-native';
 import { Camera } from '@ionic-native/camera';
 
 
