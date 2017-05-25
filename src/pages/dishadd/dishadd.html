@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <ion-title>
 {{title}}
     </ion-title>
@@ -62,20 +62,13 @@
       
     
     <ion-item>
-      <ion-col width-6>
-      
         <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
           <ion-icon name="camera"></ion-icon>
         </button>
-      
-      <ion-col width-6>
-      
         <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">
           <ion-icon name="image"></ion-icon>
         </button>
-      
-        
-    </ion-item>
+      </ion-item>
     
       <ion-fab right bottom>
 

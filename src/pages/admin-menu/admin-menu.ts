@@ -1,10 +1,8 @@
 import { NativeStorage } from 'ionic-native';
-import { WelcomePage } from './../welcome/welcome';
 import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
 import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import firebase from 'firebase';
 
 /*
   Generated class for the AdminMenu page.
