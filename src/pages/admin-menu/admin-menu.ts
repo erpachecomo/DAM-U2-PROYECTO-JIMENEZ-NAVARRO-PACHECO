@@ -3,6 +3,8 @@ import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
 import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import firebase from 'firebase';
+
 
 /*
   Generated class for the AdminMenu page.
@@ -28,7 +30,12 @@ dishes: FirebaseListObservable<any>;
           text: 'Borrar ',
           role: 'destructive',
           handler: () => {
-            //this.removeSong(songId);
+            this.dishes.remove(id).then(success=>{
+              actionSheet.dismiss();
+            },
+            err =>{
+              console.log("Borrando :()"+JSON.stringify(err));
+            });
           }
         },{
           text: 'Actualizar platillo',
@@ -59,52 +66,6 @@ addDish(){
                 id:null
               });
     
-    /*let prompt = this.alertCtrl.create({
-    title: 'Nombre del platillo',
-    message: "Ingresa el nombre del platillo",
-    inputs: [
-      {
-        name: 'name',
-        placeholder: 'Nombre'
-      },
-      {
-        name: 'description',
-        placeholder: 'Descripción'
-      },
-      {
-        name: 'price',
-        placeholder: 'Precio',
-        type:'number'
-      },
-      {
-        name: 'image',
-        placeholder: 'Imagen',
-        type:'number'
-      }
-    ],
-    buttons: [
-      {
-        text: 'Cancelar',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Guardar',
-        handler: data => {
-          console.log("Guardando...");
-          console.log(JSON.stringify(data));
-          this.dishes.push({
-            name: data.name,
-            description: data.description,
-            price: data.price
-            
-          });
-        }
-      }
-    ]
-  });
-  prompt.present();*/
 }
 
 
