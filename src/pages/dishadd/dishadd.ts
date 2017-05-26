@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  ViewController, NavController, NavParams } from 'ionic-angular';
+import { ViewController, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import firebase from 'firebase';
@@ -33,29 +33,33 @@ public dishesImages: any;
   public errorName: boolean=false;
   public errorDescription: boolean=false;
   public errorPrice: boolean=false;
+  public loading: any;
+  public ingredients:Array<String>;
+  public ingredient:String;
 
- 
-  constructor(public camera: Camera,public navParams:NavParams, public viewCtrl:ViewController,public navCtrl: NavController, af: AngularFire) {
+  constructor(public loadingCtrl:LoadingController,public camera: Camera,public navParams:NavParams, public viewCtrl:ViewController,public navCtrl: NavController, af: AngularFire) {
       this.dishesImages = firebase.storage().ref('/Dishes/');
       this.dishes = af.database.list('/dishes');
       let id=navParams.get('id');
-      console.log(id);
+      this.ingredients=[];
       if(id!=null){
-      let npName=navParams.get('name');      
-      let npDescription=navParams.get('description');
-      let npPrice=navParams.get('price');
-      let npImage=navParams.get('image');
-        
-      this.title="Editar "+npName;              
-      this.name=(npName);
-      this.price=(npPrice);
-      this.description=(npDescription);
-      this.myPhotoURL=(npImage);
-      this.photoReady=true;
+        let npName=navParams.get('name');      
+        let npDescription=navParams.get('description');
+        let npPrice=navParams.get('price');
+        let npImage=navParams.get('image');
+        let npIngredients=navParams.get('ingredients');
       
-      this.id=id;
-      this.isUpdate=true;
-    }//if
+        
+        this.title="Editar "+npName;              
+        this.name=(npName);
+        this.price=(npPrice);
+        this.description=(npDescription);
+        this.myPhotoURL=(npImage);
+        this.photoReady=true;
+        this.ingredients=npIngredients;
+        this.id=id;
+        this.isUpdate=true;
+      }//if
 
     
   }
@@ -85,7 +89,7 @@ public dishesImages: any;
       price: this.price,
       description: this.description,
       image: this.myPhotoURL,
-      ingredients:['Sal','Limon','Tequila']
+      ingredients:this.ingredients
     };
     console.log(JSON.stringify(data));
     if(this.isUpdate){
@@ -106,7 +110,14 @@ public dishesImages: any;
     this.viewCtrl.dismiss();
   }
 
- 
+ addIngredient(){
+   if(this.ingredient!="")
+      this.ingredients.push(this.ingredient);
+  this.ingredient="";
+ }
+ deleteIngredient(i){
+    this.ingredients.splice(i,1);
+ }
   takePhoto() {
     this.camera.getPicture({
       quality: 100,
@@ -115,6 +126,7 @@ public dishesImages: any;
       encodingType: this.camera.EncodingType.PNG,
       saveToPhotoAlbum: true
     }).then(imageData => {
+      this.presentLoadingDefault();
       this.myPhoto = imageData;
       this.uploadPhoto();
     }, error => {
@@ -130,6 +142,7 @@ public dishesImages: any;
       encodingType: this.camera.EncodingType.PNG,
     }).then(imageData => {
       this.myPhoto = imageData;
+      this.presentLoadingDefault();
       this.uploadPhoto();
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
@@ -145,7 +158,17 @@ public dishesImages: any;
         this.myPhotoURL = savedPicture.downloadURL;
         console.log("Guardando... "+this.myPhotoURL);
         this.photoReady=true;
+        this.loading.dismiss();
       });
+  }
+
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Cargando imagen...'
+    });
+
+    this.loading.present();
+
   }
  
   private generateUUID(): any {

@@ -48,7 +48,21 @@
     
     <p *ngIf="errorPrice" color="danger" padding-left>El precio es requerido</p>
       
-    
+    <ion-item>
+            
+      <ion-label floating>Añadir ingrediente</ion-label>
+      <ion-input type="text" [(ngModel)]="ingredient"></ion-input>
+            
+    </ion-item>
+    <button center ion-button block icon-left outline color="secondary" (click)="addIngredient()">
+      <ion-icon name="add"></ion-icon>
+      Añadir ingrediente
+    </button>
+    <ion-item>
+      <ion-badge *ngFor="let i of ingredients;let j = index" item-right (press)="deleteIngredient(j)">{{i}}</ion-badge>
+    </ion-item>
+      
+
     <ion-item>
       
       

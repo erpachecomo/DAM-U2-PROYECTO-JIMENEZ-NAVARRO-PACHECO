@@ -16,10 +16,11 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 })
 export class AdminMenuPage {
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, af: AngularFire,public navParams: NavParams) {
+  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
+      
   }
-   showOptions(id, name,description,price,image) {
+   showOptions(id, name,description,price,image,ingredients) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Opciones',
       buttons: [
@@ -37,7 +38,8 @@ dishes: FirebaseListObservable<any>;
                 price:price,
                 description:description,
                 name:name,
-                image:image
+                image:image,
+                ingredients:ingredients
               });
 
           }
@@ -108,6 +110,7 @@ addDish(){
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
+    this.dishes = this.af.database.list('/dishes');
   }
 
 }
