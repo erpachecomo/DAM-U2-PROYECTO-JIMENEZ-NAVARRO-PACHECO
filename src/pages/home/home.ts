@@ -4,7 +4,7 @@ import { MenuPage } from './../menu/menu';
 import { BillPage } from './../bill/bill';
 import { BookPage } from './../book/book';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Alert } from 'ionic-angular';
 import firebase from 'firebase';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
@@ -15,7 +15,8 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
 export class HomePage {
   options: BarcodeScannerOptions;
   results: any = {};
-  constructor(public navCtrl: NavController,private barcode: BarcodeScanner) {
+  res: any;
+  constructor(public navCtrl: NavController, private barcode: BarcodeScanner) {
 
   }
   logout() {
@@ -37,21 +38,35 @@ export class HomePage {
     });
   }
   abrirMenu() {
-    this.navCtrl.setRoot(MenuPage);
+    this.navCtrl.push(MenuPage);
   }//abrirMenu
 
-  abrirCuenta() {
+  async scanBarcode() {
+
     this.options = {
       prompt: 'Escanea un código para ver los resultados'
     }
 
-    this.results = this.barcode.scan();
-    console.log("Clave: "+this.results);
-    this.navCtrl.setRoot(BillPage);
+    this.results = await this.barcode.scan();
+  let receta:string = this.results.text;
+  console.log("resultados coquetos: " + receta);
+    this.navCtrl.push(BillPage,receta); 
+       
+    
+  }
 
+  abrirCuenta() {
+let datos = {}
+    this.scanBarcode();
+    //datos = {nombre:"algo",precio: "24.00"}
+    datos = this.results.text;
+      
+
+    
+    
   }//abrirCuenta
-abrirReservacion(){
-  this.navCtrl.setRoot(BookPage);
-}
+  abrirReservacion() {
+    this.navCtrl.push(BookPage);
+  }
 }
 

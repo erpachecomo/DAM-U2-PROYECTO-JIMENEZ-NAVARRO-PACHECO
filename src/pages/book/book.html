@@ -14,14 +14,20 @@
 
 
 <ion-content padding>
-<ion-item>
-  <ion-label>Fecha a reservar:</ion-label>
- <!-- <ion-datetime displayFormat="" pickerFormat="" [(ngModel)]=""></ion-datetime>-->
-   <ion-input type="text" ></ion-input>
- 
-</ion-item>
-<ion-item>
-  <ion-label >Número de personas:</ion-label>
-  <ion-input type="number" ></ion-input>
-</ion-item>
+
+  <ion-row>
+    <ion-item>
+      <ion-label floating>Fecha a reservar:</ion-label>
+      <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="birthday"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Número de personas:</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+  </ion-row>
+   <button ion-button block >Verificar Disponibilidad</button>
+   <button ion-button block >Confirmar</button>
+
+
+
 </ion-content>

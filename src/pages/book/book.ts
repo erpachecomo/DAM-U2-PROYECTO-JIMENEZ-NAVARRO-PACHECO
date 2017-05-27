@@ -10,9 +10,10 @@ import { NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-book',
   templateUrl: 'book.html'
+  
 })
 export class BookPage {
-
+  birtday:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {

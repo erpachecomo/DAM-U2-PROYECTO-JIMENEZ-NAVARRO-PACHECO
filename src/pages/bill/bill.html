@@ -7,12 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>bill</ion-title>
+    <ion-title>Cuenta</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
+<ion-card>
+  <ion-card-header>
+    Ingredientes
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{params.data | json}}</p>
+  </ion-card-content>
+</ion-card>
 </ion-content>
