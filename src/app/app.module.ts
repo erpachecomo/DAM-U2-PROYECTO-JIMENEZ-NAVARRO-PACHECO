@@ -1,5 +1,6 @@
 import { AdminMenuPage } from './../pages/admin-menu/admin-menu';
 import { MenuPage } from './../pages/menu/menu';
+import { DishaddPage } from './../pages/dishadd/dishadd';
 import { WelcomePage } from './../pages/welcome/welcome';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -12,7 +13,8 @@ import { BillPage } from '../pages/bill/bill';
 import { BookPage } from '../pages/book/book';
 import { AngularFireModule } from 'angularfire2';
 //import { Facebook } from '@ionic-native/facebook'
-import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
+import { Facebook } from 'ionic-native';
+import { Camera } from '@ionic-native/camera';
 
 
 
@@ -36,6 +38,7 @@ export const firebaseConfig = {
     BookPage,
     BillPage,
     MenuPage,
+    DishaddPage,
     AdminMenuPage
 
   ],
@@ -54,11 +57,12 @@ export const firebaseConfig = {
     BookPage,
     BillPage,
     MenuPage,
-    AdminMenuPage
+    AdminMenuPage,
+    DishaddPage
 
   ],
   providers:
-   [ BarcodeScanner,Facebook,
+   [ BarcodeScanner,Facebook,Camera,
    {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

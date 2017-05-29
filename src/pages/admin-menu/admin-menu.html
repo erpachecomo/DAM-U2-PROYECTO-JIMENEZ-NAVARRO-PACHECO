@@ -9,26 +9,25 @@
   <ion-navbar>
     <ion-title>Administrador - Menu</ion-title>
     <ion-buttons end>
-  <button ion-button icon-only (click)="logout()">
-    <ion-icon name="power"></ion-icon>
-  </button>
-</ion-buttons>
+      <button ion-button icon-only (click)="addDish()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list>
+<ion-content class="card-background-page">
     
-  <ion-item *ngFor="let dish of dishes | async" (click)="showOptions(dish.$key, dish.name)">
+  <ion-item *ngFor="let dish of dishes | async" (click)="showOptions(dish.$key, dish.name,dish.description,dish.price,dish.image,dish.ingredients)">
   <ion-card>
-    <img src="dish.image"/>
+    <img [src]="dish.image"/>
     <div class="card-title">{{dish.name}}</div>
-    <div class="card-subtitle">{{dish.description}}</div>
+    <div class="card-subtitle">$ {{dish.price}} - {{dish.description}}</div>
   </ion-card>
   </ion-item>
   
 
-</ion-list>
+
 </ion-content>

@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+{{title}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancelar</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+       
+    <ion-item>
+      
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+      
+    </ion-item>
+      
+    
+    <p *ngIf="errorName" color="danger" padding-left>El nombre del platillo es requerido</p>
+         
+    <ion-item>
+      
+      
+      <ion-label floating>Descripción</ion-label>
+      <ion-input type="text" [(ngModel)]="description"></ion-input>
+            
+    </ion-item>
+      
+    
+    <p *ngIf="errorDescription" color="danger" padding-left>La descripción es requerida</p>
+      
+    
+    <ion-item>
+      
+      
+      <ion-label floating>Precio</ion-label>
+      <ion-input type="number" [(ngModel)]="price"></ion-input>
+      
+      
+    </ion-item>
+      
+    
+    <p *ngIf="errorPrice" color="danger" padding-left>El precio es requerido</p>
+      
+    <ion-item>
+            
+      <ion-label floating>Añadir ingrediente</ion-label>
+      <ion-input type="text" [(ngModel)]="ingredient"></ion-input>
+            
+    </ion-item>
+    <button center ion-button block icon-left outline color="secondary" (click)="addIngredient()">
+      <ion-icon name="add"></ion-icon>
+      Añadir ingrediente
+    </button>
+    <ion-item>
+      <ion-badge *ngFor="let i of ingredients;let j = index" item-right (press)="deleteIngredient(j)">{{i}}</ion-badge>
+    </ion-item>
+      
+
+    <ion-item>
+      
+      
+      <img [src]="myPhotoURL" />
+      
+      
+    </ion-item>    
+      
+    
+    <p *ngIf="!photoReady" color="danger" padding-left>La imagen es requerida</p>
+      
+    
+    <ion-item>
+        <button ion-button color="danger" type="button" full round large (click)="takePhoto()">
+          <ion-icon name="camera"></ion-icon>
+        </button>
+        <button ion-button color="secondary" type="button" full round large (click)="selectPhoto()">
+          <ion-icon name="image"></ion-icon>
+        </button>
+      </ion-item>
+    
+      <ion-fab right bottom>
+
+      <button ion-fab (click)="sendData()">
+          <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+      </ion-fab>
+
+</ion-content>
