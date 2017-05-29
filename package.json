@@ -43,7 +43,12 @@
     "cordova-plugin-console",
     "cordova-plugin-device",
     "ionic-plugin-keyboard",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-nativestorage",
+    "cordova-plugin-camera",
+    "cordova-plugin-compat",
+    "phonegap-plugin-barcodescanner"
+
   ],
   "cordovaPlatforms": [],
   "description": "ProyectoFinal: An Ionic project"
