@@ -1,3 +1,4 @@
+import { PromoPage } from './../promo/promo';
 import { Component } from '@angular/core';
 import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
@@ -23,6 +24,16 @@ dishes: FirebaseListObservable<any>;
     console.log('ionViewDidLoad MenuPage');
       this.dishes = this.af.database.list('/dishes');
     
+  }
+
+ showOptions(key, name,description,price,image,ingredients){
+        this.navCtrl.push(PromoPage, {
+          name:name,
+          description:description,
+          price:price,
+          image:image,
+          ingredients:ingredients
+        });
   }
 
 }

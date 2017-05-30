@@ -1,3 +1,4 @@
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { NativeStorage } from 'ionic-native';
 import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
@@ -21,9 +22,14 @@ import firebase from 'firebase';
 export class AdminDishesPage {
 
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
+options: BarcodeScannerOptions;
+  results: any = {};
+  constructor(public navCtrl: NavController, private barcode: BarcodeScanner,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
       
+  }
+  async encodeData(dish){
+    const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE,dish);
   }
    showOptions(id, name,description,price,image,ingredients) {
     let actionSheet = this.actionSheetCtrl.create({
@@ -39,6 +45,17 @@ dishes: FirebaseListObservable<any>;
             err =>{
               console.log("Borrando :()"+JSON.stringify(err));
             });
+          }
+        },
+        {
+          text: 'Seleccionar como platillo del día ',
+          handler: () => {
+            this.encodeData(JSON.stringify({id:id,
+                price:price,
+                description:description,
+                name:name,
+                image:image,
+                ingredients:ingredients}));
           }
         },{
           text: 'Actualizar platillo',

@@ -20,8 +20,6 @@ options: BarcodeScannerOptions;
 
   }
 
-
-
 async encodeData(){
   const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE,this.cadenita);
 }

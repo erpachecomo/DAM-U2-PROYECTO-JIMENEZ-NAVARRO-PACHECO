@@ -10,7 +10,7 @@
 <ion-content class="card-background-page">
   <ion-list>
     
-  <ion-item *ngFor="let drink of drinks | async" (click)="showOptions(drink.$key, drink.name)">
+  <ion-item *ngFor="let drink of drinks | async" (click)="showOptions(drink.$key, drink.name,drink.description,drink.price,drink.image,drink.ingredients)">
   <ion-card>
     <img [src]="drink.image"/>
     <div class="card-title">{{drink.name}}</div>
