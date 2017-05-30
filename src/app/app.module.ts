@@ -21,6 +21,7 @@ import { BillPage } from '../pages/bill/bill';
 import { BookPage } from '../pages/book/book';
 import { PromoPage } from '../pages/promo/promo';
 import { AngularFireModule } from 'angularfire2';
+import { CallNumber } from '@ionic-native/call-number';
 //import { Facebook } from '@ionic-native/facebook'
 import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
 import { ParallaxHeader } from '../components/parallax-header/parallax-header';
@@ -91,7 +92,7 @@ export const firebaseConfig = {
   ],
   providers:
 
-   [ BarcodeScanner,Facebook,Camera,
+   [ BarcodeScanner,Facebook,Camera,CallNumber,
    {provide: ErrorHandler, useClass: IonicErrorHandler}]
 
 })
