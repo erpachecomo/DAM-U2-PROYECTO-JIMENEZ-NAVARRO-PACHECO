@@ -1,3 +1,4 @@
+import { OpinionPage } from './../opinion/opinion';
 import { MenuuserPage } from './../menuuser/menuuser';
 import { NativeStorage } from 'ionic-native';
 import { WelcomePage } from './../welcome/welcome';
@@ -19,6 +20,7 @@ export class HomePage {
   constructor(public navCtrl: NavController, private barcode: BarcodeScanner) {
 
   }
+  
   logout() {
     let nav = this.navCtrl;
     
@@ -36,6 +38,9 @@ export class HomePage {
   }
   abrirMenu() {
     this.navCtrl.push(MenuuserPage);
+  }//abrirMenu
+  abrirOpinion() {
+    this.navCtrl.push(OpinionPage);
   }//abrirMenu
 
   async scanBarcode() {

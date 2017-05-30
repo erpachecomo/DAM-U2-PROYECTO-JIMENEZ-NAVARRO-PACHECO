@@ -1,0 +1,14 @@
+
+<ion-content>
+    
+  <ion-item *ngFor="let user of users | async" >
+      <ion-toggle [(ngModel)]="user.state" (ionChange)="userSelected(user.$key,user.state)"></ion-toggle>
+      <ion-label>
+        {{user.user}}
+      </ion-label>
+    </ion-item>
+<ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addUser()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>
+

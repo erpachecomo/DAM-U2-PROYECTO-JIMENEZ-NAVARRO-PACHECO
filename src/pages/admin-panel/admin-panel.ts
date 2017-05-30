@@ -1,7 +1,9 @@
+import { AdminOpinionPage } from './../admin-opinion/admin-opinion';
 import { NativeStorage } from 'ionic-native';
 import { AdminmenuPage } from './../adminmenu/adminmenu';
 import { WelcomePage } from './../welcome/welcome';
 import { AdminMenuPage } from './../admin-menu/admin-menu';
+import { AdminUserPage } from './../admin-user/admin-user';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { EncodeDataPage} from './../encode-data/encode-data';
@@ -29,6 +31,16 @@ export class AdminPanelPage {
   goToMenu(){
     let nav = this.navCtrl;
     nav.push(AdminmenuPage);
+  }
+
+goToOpinion(){
+    let nav = this.navCtrl;
+    nav.push(AdminOpinionPage);
+  }
+
+  goToUser(){
+    let nav = this.navCtrl;
+    nav.push(AdminUserPage);
   }
   logout(){
     let nav=this.navCtrl;

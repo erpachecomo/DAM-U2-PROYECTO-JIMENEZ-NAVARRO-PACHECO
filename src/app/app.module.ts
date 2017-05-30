@@ -1,3 +1,4 @@
+import { OpinionPage } from './../pages/opinion/opinion';
 import { AdminmenuPage } from './../pages/adminmenu/adminmenu';
 import { MenuuserPage } from './../pages/menuuser/menuuser';
 import { DishesPage } from './../pages/dishes/dishes';
@@ -6,6 +7,8 @@ import { DessertsPage } from './../pages/desserts/desserts';
 import { AdminDrinksPage } from './../pages/admin-drinks/admin-drinks';
 import { AdminDessertsPage } from './../pages/admin-desserts/admin-desserts';
 import { AdminDishesPage } from './../pages/admin-dishes/admin-dishes';
+import { AdminUserPage } from './../pages/admin-user/admin-user';
+import { AdminOpinionPage } from './../pages/admin-opinion/admin-opinion';
 
 import { AdminMenuPage } from './../pages/admin-menu/admin-menu';
 import { DishaddPage } from './../pages/dishadd/dishadd';
@@ -54,7 +57,10 @@ export const firebaseConfig = {
     AdminmenuPage,
     AdminDessertsPage,
     AdminDishesPage,
-    AdminDrinksPage
+    AdminDrinksPage,
+    AdminUserPage,
+    OpinionPage,
+    AdminOpinionPage
 
   ],
   imports: [
@@ -80,7 +86,10 @@ export const firebaseConfig = {
     AdminmenuPage,
     AdminDessertsPage,
     AdminDishesPage,
-    AdminDrinksPage
+    AdminDrinksPage,
+    AdminUserPage,
+    OpinionPage,
+    AdminOpinionPage    
 
   ],
   providers:

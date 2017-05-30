@@ -1,3 +1,4 @@
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { HomePage } from './../home/home';
 import { AdminPanelPage} from './../admin-panel/admin-panel';
 import { Component } from '@angular/core';
@@ -22,10 +23,11 @@ import firebase from 'firebase';
 })
 export class WelcomePage {
   userProfile: any = null;
+  users:FirebaseListObservable<any>;
   email:string='erpachecomo@ittepic.edu.mx';
   password:string='poktli123';
-  constructor(public navCtrl: NavController, private facebook:Facebook, public loadingCtrl:LoadingController) {
-        
+  constructor(public navCtrl: NavController, af:AngularFire, private facebook:Facebook, public loadingCtrl:LoadingController) {
+        this.users = af.database.list('/users');
 
   }
   continue(){
@@ -52,7 +54,11 @@ continueAsAdmin(){
   then((success) => {
             console.log("Firebase success: " + JSON.stringify(success));
             this.userProfile = success;
-            NativeStorage.setItem('admin',
+            this.users.forEach(element => {
+              
+              for(let i =0;i<element.length;i++)
+              if(element[i].state&&element[i].uid===this.userProfile.uid){
+                NativeStorage.setItem('admin',
             {
               name: this.userProfile.displayName,
               picture: this.userProfile.photoURL
@@ -62,7 +68,11 @@ continueAsAdmin(){
               nav.setRoot(AdminPanelPage);
             }, function (error) {
               console.log(JSON.stringify(error));
-          })
+          });
+              }
+
+            });
+            
         });
 }
 
