@@ -19,15 +19,15 @@ import firebase from 'firebase';
   templateUrl: 'dishadd.html'
 })
 export class DishaddPage {
-public dishesImages: any;
+public listImages: any;
   public myPhoto: any;
   public myPhotoURL: any='http://placehold.it/350?text=Poktli';
-  dishes: FirebaseListObservable<any>;
+  list: FirebaseListObservable<any>;
   public name: string = "";
   public description: string="";
   public price: string="";
-  public title: string="Añadir un platillo"
-  public id: string="Añadir un platillo"
+  public title: string="Añadir un"
+  public id: string=""
   public isUpdate: boolean=false;
   public photoReady: boolean=true;
   public errorName: boolean=false;
@@ -36,11 +36,29 @@ public dishesImages: any;
   public loading: any;
   public ingredients:Array<String>;
   public ingredient:String;
+  public type:String;
 
   constructor(public loadingCtrl:LoadingController,public camera: Camera,public navParams:NavParams, public viewCtrl:ViewController,public navCtrl: NavController, af: AngularFire) {
-      this.dishesImages = firebase.storage().ref('/Dishes/');
-      this.dishes = af.database.list('/dishes');
+      switch (navParams.get('type')) {
+        case 'dishes':
+          this.listImages = firebase.storage().ref('/Dishes/');    
+          this.list = af.database.list('/dishes');
+          this.title+=" platillo";
+          break;
+      
+        case 'desserts':
+        this.listImages = firebase.storage().ref('/Desserts/');    
+          this.list = af.database.list('/desserts');
+          this.title+=" postre";
+          break;
+          case 'drinks':
+        this.listImages = firebase.storage().ref('/Drinks/');    
+        this.title+="a bebida";
+          this.list = af.database.list('/drinks');
+          break;
+      }
       let id=navParams.get('id');
+      this.type=navParams.get('type');
       this.ingredients=[];
       if(id!=null){
         let npName=navParams.get('name');      
@@ -93,12 +111,12 @@ public dishesImages: any;
     };
     console.log(JSON.stringify(data));
     if(this.isUpdate){
-      this.dishes.update(this.id, data).then(
+      this.list.update(this.id, data).then(
         (success)=>{
           this.navCtrl.pop();
         });
     }else{
-      this.dishes.push(data).then(
+      this.list.push(data).then(
         (success)=>{
           this.navCtrl.pop();
         });
@@ -152,7 +170,7 @@ public dishesImages: any;
   private uploadPhoto(): void {
     this.photoReady=false;
     
-    this.dishesImages.child(this.generateUUID()).child('myPhoto.png')
+    this.listImages.child(this.generateUUID()).child('myPhoto.png')
       .putString(this.myPhoto, 'base64', { contentType: 'image/png' })
       .then((savedPicture) => {
         this.myPhotoURL = savedPicture.downloadURL;

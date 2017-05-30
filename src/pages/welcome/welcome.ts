@@ -52,7 +52,7 @@ continueAsAdmin(){
   then((success) => {
             console.log("Firebase success: " + JSON.stringify(success));
             this.userProfile = success;
-            NativeStorage.setItem('user',
+            NativeStorage.setItem('admin',
             {
               name: this.userProfile.displayName,
               picture: this.userProfile.photoURL

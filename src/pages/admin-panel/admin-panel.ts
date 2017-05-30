@@ -1,3 +1,5 @@
+import { NativeStorage } from 'ionic-native';
+import { AdminmenuPage } from './../adminmenu/adminmenu';
 import { WelcomePage } from './../welcome/welcome';
 import { AdminMenuPage } from './../admin-menu/admin-menu';
 import { Component } from '@angular/core';
@@ -26,12 +28,21 @@ export class AdminPanelPage {
 
   goToMenu(){
     let nav = this.navCtrl;
-    nav.push(AdminMenuPage);
+    nav.push(AdminmenuPage);
   }
   logout(){
     let nav=this.navCtrl;
     firebase.auth().signOut().then(function(){
+          console.log("AdminPanelPage");
+      NativeStorage.clear().then(function () {
+          console.log("HOMEPAGE");
           nav.setRoot(WelcomePage);
+        }, function (error) {
+          console.log(JSON.stringify(error));
+        });
+    }, function (error) {
+      console.log(JSON.stringify(error));
+    
     });
   }
 }

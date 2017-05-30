@@ -1,5 +1,13 @@
+import { AdminmenuPage } from './../pages/adminmenu/adminmenu';
+import { MenuuserPage } from './../pages/menuuser/menuuser';
+import { DishesPage } from './../pages/dishes/dishes';
+import { DrinksPage } from './../pages/drinks/drinks';
+import { DessertsPage } from './../pages/desserts/desserts';
+import { AdminDrinksPage } from './../pages/admin-drinks/admin-drinks';
+import { AdminDessertsPage } from './../pages/admin-desserts/admin-desserts';
+import { AdminDishesPage } from './../pages/admin-dishes/admin-dishes';
+
 import { AdminMenuPage } from './../pages/admin-menu/admin-menu';
-import { MenuPage } from './../pages/menu/menu';
 import { DishaddPage } from './../pages/dishadd/dishadd';
 import { WelcomePage } from './../pages/welcome/welcome';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -37,9 +45,16 @@ export const firebaseConfig = {
     WelcomePage,
     BookPage,
     BillPage,
-    MenuPage,
     DishaddPage,
-    AdminMenuPage
+    AdminMenuPage,
+    DishesPage,
+    DessertsPage,
+    DrinksPage,
+    MenuuserPage,
+    AdminmenuPage,
+    AdminDessertsPage,
+    AdminDishesPage,
+    AdminDrinksPage
 
   ],
   imports: [
@@ -56,9 +71,16 @@ export const firebaseConfig = {
     WelcomePage,
     BookPage,
     BillPage,
-    MenuPage,
     AdminMenuPage,
-    DishaddPage
+    DishaddPage,
+    DishesPage,
+    DessertsPage,
+    DrinksPage,
+    MenuuserPage,
+    AdminmenuPage,
+    AdminDessertsPage,
+    AdminDishesPage,
+    AdminDrinksPage
 
   ],
   providers:

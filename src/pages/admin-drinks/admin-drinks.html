@@ -1,0 +1,20 @@
+<!--
+  Generated template for the AdminDrinks page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content class="card-background-page">
+    
+  <ion-item *ngFor="let drink of drinks | async" (click)="showOptions(drink.$key, drink.name,drink.description,drink.price,drink.image,drink.ingredients)">
+  <ion-card>
+    <img [src]="drink.image"/>
+    <div class="card-title">{{drink.name}}</div>
+    <div class="card-subtitle">$ {{drink.price}} - {{drink.description}}</div>
+  </ion-card>
+  </ion-item>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addDrink()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

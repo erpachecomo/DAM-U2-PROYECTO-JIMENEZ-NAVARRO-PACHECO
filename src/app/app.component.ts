@@ -1,3 +1,4 @@
+import { AdminPanelPage } from './../pages/admin-panel/admin-panel';
 import { firebaseConfig } from './app.module';
 
 import { WelcomePage } from './../pages/welcome/welcome';
@@ -29,7 +30,7 @@ export class MyApp {
   }
    ngAfterViewInit(){
       //this.nav is now defined
-      setTimeout(() => {
+      //setTimeout(() => {
       let env = this;
 
       GooglePlus.trySilentLogin({
@@ -39,17 +40,23 @@ export class MyApp {
         'offline': true
       })
 
-
-
       NativeStorage.getItem('user')
       .then( function (data) {
         // user is previously logged and we have his data
         // we will let him access the app
-        env.nav.push(HomePage);
+        env.nav.setRoot(HomePage);
       }, function (error) {
         //we don't have the user data so we will ask him to log in
-        env.nav.setRoot(WelcomePage);
+            NativeStorage.getItem('admin')
+          .then( function (data) {
+            // user is previously logged and we have his data
+            // we will let him access the app
+            env.nav.setRoot(AdminPanelPage);
+          }, function (error) {
+            //we don't have the user data so we will ask him to log in
+            env.nav.setRoot(WelcomePage);
+          });
       });
-      }, 2000);
+//      }, 2000);
     }
 }
