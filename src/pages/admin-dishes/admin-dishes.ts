@@ -12,11 +12,14 @@ import firebase from 'firebase';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
+
 @Component({
-  selector: 'page-admin-menu',
-  templateUrl: 'admin-menu.html'
+  selector: 'page-admin-dishes',
+  templateUrl: 'admin-dishes.html'
 })
-export class AdminMenuPage {
+export class AdminDishesPage {
+
 dishes: FirebaseListObservable<any>;
   constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
@@ -46,7 +49,8 @@ dishes: FirebaseListObservable<any>;
                 description:description,
                 name:name,
                 image:image,
-                ingredients:ingredients
+                ingredients:ingredients,
+                type:'dishes'                
               });
 
           }
@@ -63,7 +67,8 @@ dishes: FirebaseListObservable<any>;
   }
 addDish(){
   this.navCtrl.push(DishaddPage,{
-                id:null
+                id:null,
+                type:'dishes'
               });
     
 }
@@ -75,3 +80,8 @@ addDish(){
   }
 
 }
+
+
+
+
+

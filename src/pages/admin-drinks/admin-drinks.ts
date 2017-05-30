@@ -12,14 +12,15 @@ import firebase from 'firebase';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
 @Component({
-  selector: 'page-admin-menu',
-  templateUrl: 'admin-menu.html'
+  selector: 'page-admin-drinks',
+  templateUrl: 'admin-drinks.html'
 })
-export class AdminMenuPage {
-dishes: FirebaseListObservable<any>;
+export class AdminDrinksPage {
+drinks: FirebaseListObservable<any>;
   constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
-      this.dishes = af.database.list('/dishes');
+      this.drinks = af.database.list('/drinks');
       
   }
    showOptions(id, name,description,price,image,ingredients) {
@@ -30,7 +31,7 @@ dishes: FirebaseListObservable<any>;
           text: 'Borrar ',
           role: 'destructive',
           handler: () => {
-            this.dishes.remove(id).then(success=>{
+            this.drinks.remove(id).then(success=>{
               actionSheet.dismiss();
             },
             err =>{
@@ -46,7 +47,8 @@ dishes: FirebaseListObservable<any>;
                 description:description,
                 name:name,
                 image:image,
-                ingredients:ingredients
+                ingredients:ingredients,
+                type:'drinks'                
               });
 
           }
@@ -61,9 +63,10 @@ dishes: FirebaseListObservable<any>;
     });
     actionSheet.present();
   }
-addDish(){
+addDrink(){
   this.navCtrl.push(DishaddPage,{
-                id:null
+                id:null,
+                type:'drinks'
               });
     
 }
@@ -71,7 +74,7 @@ addDish(){
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuPage');
-    this.dishes = this.af.database.list('/dishes');
+    this.drinks = this.af.database.list('/drinks');
   }
 
 }

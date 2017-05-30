@@ -6,8 +6,13 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar primary>
     <ion-title>Panel de control</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="logout()">
+        <ion-icon name="power"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -21,7 +26,7 @@
                    <button ion-item >
                     Usuarios
                 </button>
-                <button ion-item>
+                <button ion-item (click)="goToMenu()">
                     Menú
                 </button>
             </ion-list>

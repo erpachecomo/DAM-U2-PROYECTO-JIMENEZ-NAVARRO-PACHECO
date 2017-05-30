@@ -22,24 +22,29 @@ import firebase from 'firebase';
 })
 export class WelcomePage {
   userProfile: any = null;
-  email:string='';
-  password:string='';
+  email:string='erpachecomo@ittepic.edu.mx';
+  password:string='poktli123';
   constructor(public navCtrl: NavController, private facebook:Facebook, public loadingCtrl:LoadingController) {
         
 
   }
   continue(){
     let nav = this.navCtrl;
-     NativeStorage.setItem('user',
+    firebase.auth().signInAnonymously().then(success=>{
+        NativeStorage.setItem('user',
         {
           name: "invitado"
         })
         .then(function(){
-          console.log("HOMEPAGE");
+          console.log("Invitado");
           nav.setRoot(HomePage);
-        }, function (error) {
-          console.log(JSON.stringify(error));
+        }, function (err) {
+          console.log("NativeStorage Invitado: "+JSON.stringify(err));
         });
+    },err=>{
+         console.log("NativeStorage Invitado: "+JSON.stringify(err));
+    });
+     
   }
 continueAsAdmin(){
   let nav = this.navCtrl;
@@ -47,7 +52,7 @@ continueAsAdmin(){
   then((success) => {
             console.log("Firebase success: " + JSON.stringify(success));
             this.userProfile = success;
-            NativeStorage.setItem('user',
+            NativeStorage.setItem('admin',
             {
               name: this.userProfile.displayName,
               picture: this.userProfile.photoURL
@@ -124,7 +129,11 @@ continueAsAdmin(){
         })
         .catch((error) => {
             console.log("Firebase failure: " + JSON.stringify(error));
+            if(error==={}){
+            console.log("No Problema" + JSON.stringify(error));
+              
             nav.setRoot(HomePage);
+          }
         });
   }, function (error) {
     console.log(JSON.stringify(error));

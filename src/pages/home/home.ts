@@ -1,6 +1,6 @@
+import { MenuuserPage } from './../menuuser/menuuser';
 import { NativeStorage } from 'ionic-native';
 import { WelcomePage } from './../welcome/welcome';
-import { MenuPage } from './../menu/menu';
 import { BillPage } from './../bill/bill';
 import { BookPage } from './../book/book';
 import { PromoPage } from './../promo/promo';
@@ -22,13 +22,10 @@ export class HomePage {
   }
   logout() {
     let nav = this.navCtrl;
+    
     firebase.auth().signOut().then(function () {
       console.log("AdminPanelPage");
-      NativeStorage.setItem('user',
-        {
-          name: ""
-        })
-        .then(function () {
+      NativeStorage.clear().then(function () {
           console.log("HOMEPAGE");
           nav.setRoot(WelcomePage);
         }, function (error) {
@@ -39,7 +36,7 @@ export class HomePage {
     });
   }
   abrirMenu() {
-    this.navCtrl.push(MenuPage);
+    this.navCtrl.push(MenuuserPage);
   }//abrirMenu
 
 

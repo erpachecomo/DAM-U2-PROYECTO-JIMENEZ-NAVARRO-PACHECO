@@ -1,5 +1,14 @@
+import { AdminmenuPage } from './../pages/adminmenu/adminmenu';
+import { MenuuserPage } from './../pages/menuuser/menuuser';
+import { DishesPage } from './../pages/dishes/dishes';
+import { DrinksPage } from './../pages/drinks/drinks';
+import { DessertsPage } from './../pages/desserts/desserts';
+import { AdminDrinksPage } from './../pages/admin-drinks/admin-drinks';
+import { AdminDessertsPage } from './../pages/admin-desserts/admin-desserts';
+import { AdminDishesPage } from './../pages/admin-dishes/admin-dishes';
+
 import { AdminMenuPage } from './../pages/admin-menu/admin-menu';
-import { MenuPage } from './../pages/menu/menu';
+import { DishaddPage } from './../pages/dishadd/dishadd';
 import { WelcomePage } from './../pages/welcome/welcome';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -15,6 +24,8 @@ import { AngularFireModule } from 'angularfire2';
 //import { Facebook } from '@ionic-native/facebook'
 import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
 import { ParallaxHeader } from '../components/parallax-header/parallax-header';
+import { Camera } from '@ionic-native/camera';
+
 
 
 
@@ -39,8 +50,16 @@ export const firebaseConfig = {
     BookPage,
     PromoPage,
     BillPage,
-    MenuPage,
-    AdminMenuPage
+    DishaddPage,
+    AdminMenuPage,
+    DishesPage,
+    DessertsPage,
+    DrinksPage,
+    MenuuserPage,
+    AdminmenuPage,
+    AdminDessertsPage,
+    AdminDishesPage,
+    AdminDrinksPage
 
   ],
   imports: [
@@ -58,12 +77,22 @@ export const firebaseConfig = {
     PromoPage,
     BookPage,
     BillPage,
-    MenuPage,
-    AdminMenuPage
+    AdminMenuPage,
+    DishaddPage,
+    DishesPage,
+    DessertsPage,
+    DrinksPage,
+    MenuuserPage,
+    AdminmenuPage,
+    AdminDessertsPage,
+    AdminDishesPage,
+    AdminDrinksPage
 
   ],
   providers:
-  [BarcodeScanner, Facebook,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }]
+
+   [ BarcodeScanner,Facebook,Camera,
+   {provide: ErrorHandler, useClass: IonicErrorHandler}]
+
 })
 export class AppModule { }
