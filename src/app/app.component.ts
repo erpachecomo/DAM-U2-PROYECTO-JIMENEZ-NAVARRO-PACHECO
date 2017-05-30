@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import firebase from 'firebase';
 
 
+
 @Component({
   templateUrl: 'app.html'
 })

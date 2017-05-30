@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { NavController,LoadingController } from 'ionic-angular';
 //import { NativeStorage,GooglePlus } from 'ionic-native';
 //import { Facebook } from '@ionic-native/facebook';
-import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
+import {Facebook, NativeStorage, GooglePlus } from 'ionic-native';
 import firebase from 'firebase';
 
 

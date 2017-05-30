@@ -10,19 +10,21 @@ import { AdminPanelPage } from '../pages/admin-panel/admin-panel';
 import { EncodeDataPage } from '../pages/encode-data/encode-data';
 import { BillPage } from '../pages/bill/bill';
 import { BookPage } from '../pages/book/book';
+import { PromoPage } from '../pages/promo/promo';
 import { AngularFireModule } from 'angularfire2';
 //import { Facebook } from '@ionic-native/facebook'
 import { Facebook, NativeStorage, GooglePlus } from 'ionic-native';
+import { ParallaxHeader } from '../components/parallax-header/parallax-header';
 
 
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyDklHeVcowOdSz0Xt8GFxzGhPb18HUGOls",
-    authDomain: "fir-poktli.firebaseapp.com",
-    databaseURL: "https://fir-poktli.firebaseio.com",
-    projectId: "firebase-poktli",
-    storageBucket: "firebase-poktli.appspot.com",
-    messagingSenderId: "19993281606"
+  apiKey: "AIzaSyDklHeVcowOdSz0Xt8GFxzGhPb18HUGOls",
+  authDomain: "fir-poktli.firebaseapp.com",
+  databaseURL: "https://fir-poktli.firebaseio.com",
+  projectId: "firebase-poktli",
+  storageBucket: "firebase-poktli.appspot.com",
+  messagingSenderId: "19993281606"
 };
 
 
@@ -32,8 +34,10 @@ export const firebaseConfig = {
     HomePage,
     AdminPanelPage,
     EncodeDataPage,
+    ParallaxHeader,
     WelcomePage,
     BookPage,
+    PromoPage,
     BillPage,
     MenuPage,
     AdminMenuPage
@@ -41,7 +45,7 @@ export const firebaseConfig = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-        AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig)
 
   ],
   bootstrap: [IonicApp],
@@ -51,6 +55,7 @@ export const firebaseConfig = {
     AdminPanelPage,
     EncodeDataPage,
     WelcomePage,
+    PromoPage,
     BookPage,
     BillPage,
     MenuPage,
@@ -58,7 +63,7 @@ export const firebaseConfig = {
 
   ],
   providers:
-   [ BarcodeScanner,Facebook,
-   {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  [BarcodeScanner, Facebook,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
-export class AppModule {}
+export class AppModule { }

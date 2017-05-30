@@ -1,0 +1,31 @@
+<!--
+  Generated template for the Bill page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Platillo de día</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content parallax-header>
+
+  <div class="header-image" [ngStyle]="{ 'background-image': 'url(' + img + ')'}"></div>
+
+  <div class="main-content">
+
+    <h2>Detalle del Platillo</h2>
+    <p>Nombre: {{name}}</p>
+    <p>Precio: {{price}}</p>
+    <p>Descripción: {{desc}}</p>
+    <p>Ingredientes:</p>
+    
+    <ion-badge *ngFor="let i of ing; let j = index">{{i}} </ion-badge>
+
+  </div>
+
+</ion-content>

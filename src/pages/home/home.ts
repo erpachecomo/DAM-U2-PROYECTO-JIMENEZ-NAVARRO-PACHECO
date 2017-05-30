@@ -3,6 +3,7 @@ import { WelcomePage } from './../welcome/welcome';
 import { MenuPage } from './../menu/menu';
 import { BillPage } from './../bill/bill';
 import { BookPage } from './../book/book';
+import { PromoPage } from './../promo/promo';
 import { Component } from '@angular/core';
 import { NavController, Alert } from 'ionic-angular';
 import firebase from 'firebase';
@@ -41,29 +42,16 @@ export class HomePage {
     this.navCtrl.push(MenuPage);
   }//abrirMenu
 
-  async scanBarcode() {
 
+  async  abrirCuenta() {
     this.options = {
       prompt: 'Escanea un código para ver los resultados'
     }
 
     this.results = await this.barcode.scan();
-  let receta:string = this.results.text;
-  console.log("resultados coquetos: " + receta);
-    this.navCtrl.push(BillPage,receta); 
-       
-    
-  }
+    let receta: any = this.results.text;
+    this.navCtrl.push(PromoPage, JSON.parse(receta));
 
-  abrirCuenta() {
-let datos = {}
-    this.scanBarcode();
-    //datos = {nombre:"algo",precio: "24.00"}
-    datos = this.results.text;
-      
-
-    
-    
   }//abrirCuenta
   abrirReservacion() {
     this.navCtrl.push(BookPage);
