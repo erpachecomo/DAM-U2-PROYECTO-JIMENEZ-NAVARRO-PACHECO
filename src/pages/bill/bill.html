@@ -13,12 +13,17 @@
 </ion-header>
 
 <ion-content padding>
-<ion-card>
-  <ion-card-header>
-    Ingredientes
-  </ion-card-header>
-  <ion-card-content>
-    <p>{{params.data | json}}</p>
-  </ion-card-content>
-</ion-card>
+  <ion-card *ngIf="params.data">
+    <ion-card-header>
+      Detalle de platillo
+    </ion-card-header>
+    <ion-card-content>
+      <img src="{{img}}" />
+      <p>Nombre: {{name}}</p>
+      <p>Precio: {{price}}</p>
+      <p>Descripción: {{desc}}</p>
+      <p>Ingredientes: {{params.data.ingredients | json}}</p>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>

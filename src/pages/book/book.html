@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <ion-row>
+  <!-- <ion-row>
     <ion-item>
       <ion-label floating>Fecha a reservar:</ion-label>
       <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="birthday"></ion-datetime>
@@ -27,6 +27,21 @@
   </ion-row>
    <button ion-button block >Verificar Disponibilidad</button>
    <button ion-button block >Confirmar</button>
+-->
+<h1>Poktli Restaurant</h1>
+<img src="https://s-media-cache-ak0.pinimg.com/originals/f0/ae/56/f0ae5685812657cb7317a6470f1e1dfb.jpg"/>
+
+
+<h4>Dirección: Sabino #255 Col. Peñita</h4>
+<h4>Código Postal: 63O34</h4>
+
+<h4>Llamar a restaurante para reservacion</h4>
+
+
+
+<ion-fab  bottom center>
+<button ion-fab (click)="callNumber()" color="secondary"><ion-icon name="call"></ion-icon></button>
+</ion-fab>
 
 
 
