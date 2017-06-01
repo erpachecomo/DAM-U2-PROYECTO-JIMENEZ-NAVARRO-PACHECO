@@ -18,16 +18,16 @@
 
   <div class="main-content">
 
-    
-    <p>Nombre: {{name}}</p>
-    <p>Precio: {{price}}</p>
-    <p>Descripción: {{desc}}</p>
-    <p>Ingredientes:</p>
+    <h5>{{name}}</h5>
+    <h5>{{price}}</h5>
+    <p>{{desc}}</p>
+
+    <h5>Ingredientes:</h5>
 
     <div *ngFor="let i of ing; let j = index">
       <br/>
       <ion-badge>{{i}} </ion-badge>
-      
+
     </div>
 
 

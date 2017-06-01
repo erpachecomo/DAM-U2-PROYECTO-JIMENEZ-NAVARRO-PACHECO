@@ -13,22 +13,24 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class PromoPage {
 
-  img:string;
+  img: string;
   name: string;
   desc: string;
   price: string;
   ing: string[];
-  html:string;
+  num: number;
+
+
   constructor(public navCtrl: NavController, public params: NavParams) {
     //this.img = params.data.image;
     this.name = this.params.get('name');
     this.desc = this.params.get('description');
-    this.price = this.params.get('price');
+    //this.price = this.formatNumber.new(this.params.get('price'),"$");
+    let algo:number = parseInt(this.params.get('price'));
+     this.price = '$' + algo.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
     this.img = this.params.get('image');
     this.ing = this.params.get('ingredients');
 
-    
-    this.html = "<button ion-button >Algo</button>";
 
   }
 
