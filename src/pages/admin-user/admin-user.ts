@@ -1,6 +1,6 @@
 import { NativeStorage } from 'ionic-native';
 import { Component } from '@angular/core';
-import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, ActionSheetController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import firebase from 'firebase';
 
@@ -20,12 +20,21 @@ import firebase from 'firebase';
 export class AdminUserPage {
 
 users: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
+  constructor(public toastCtrl:ToastController,public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
       this.users = af.database.list('/users');
       
   }
+  showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      showCloseButton: true,
+      closeButtonText: 'Aceptar'
+    });
+    toast.present();
+  }
    showOptions(id, email) {
-    let actionSheet = this.actionSheetCtrl.create({
+      let env = this;
+      let actionSheet = this.actionSheetCtrl.create({
       title: 'Opciones',
       buttons: [
         {
@@ -33,9 +42,12 @@ users: FirebaseListObservable<any>;
           role: 'destructive',
           handler: () => {
             this.users.remove(id).then(success=>{
+              env.showToast("Borrado exitosamente");
               actionSheet.dismiss();
+
             },
             err =>{
+              env.showToast("Error al borrar, por favor vuelve a intentar.\nDetalle:"+err.message)
               console.log("Borrando :()"+JSON.stringify(err));
             });
           }
@@ -56,16 +68,24 @@ users: FirebaseListObservable<any>;
 //    actionSheet.present();
   }
   userSelected(key,state){
+    let env = this;
     console.log(key);
     console.log(state);
     this.users.update(key, {state:state}).then(
         (success)=>{
+          if(state)
+            env.showToast("Usuario activado correctamente.");
+          else
+            env.showToast("Usuario desactivado correctamente.");
           
+        },error=>{
+          env.showToast("Error al cambiar estado del usuario.\nDetalle:"+error.message)
         });
     //firebase.auth()
     //this.users.remove(uid).then();
   }
 addUser(){
+  let env = this;
    let prompt = this.alertCtrl.create({
       title: 'Agregar un administrador',
       message: "Inserta un correo",
@@ -90,8 +110,13 @@ addUser(){
                     user:data.email,
                     state:true,
                     uid:success.uid
-                  }).then();
+                  }).then(success=>{
+                    env.showToast("Usuario registrado correctamente.");                    
+                  },err=>{
+                    env.showToast("Error al registrar el usuario.\nDetalle: "+err.message);                    
+                  });
             },err=>{
+              env.showToast("Error al registrar el usuario.\nDetalle: "+err.message);
               console.log("NO Registrado!  "+JSON.stringify(err));
             });
           }

@@ -1,6 +1,6 @@
 import { PromoPage } from './../promo/promo';
 import { Component } from '@angular/core';
-import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, ActionSheetController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 
@@ -16,7 +16,7 @@ import {AngularFire, FirebaseListObservable} from 'angularfire2';
 })
 export class DishesPage {
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public af: AngularFire,public navParams: NavParams) {
+  constructor(public toastCtrl:ToastController,public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, public af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
   }
    
@@ -25,7 +25,14 @@ dishes: FirebaseListObservable<any>;
       this.dishes = this.af.database.list('/dishes');
     
   }
-
+showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      showCloseButton: true,
+      closeButtonText: 'Aceptar'
+    });
+    toast.present();
+  }
  showOptions(key, name,description,price,image,ingredients){
         this.navCtrl.push(PromoPage, {
           name:name,

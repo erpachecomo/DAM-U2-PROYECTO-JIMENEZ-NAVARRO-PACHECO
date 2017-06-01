@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { BarcodeScanner,BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 /*
@@ -16,10 +16,17 @@ export class EncodeDataPage {
 options: BarcodeScannerOptions;
   results: any = {};
   cadenita:string="";
-  constructor(public navCtrl: NavController, private barcode: BarcodeScanner) {
+  constructor(public toastCtrl:ToastController,public navCtrl: NavController, private barcode: BarcodeScanner) {
 
   }
-
+showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      showCloseButton: true,
+      closeButtonText: 'Aceptar'
+    });
+    toast.present();
+  }
 async encodeData(){
   const result = await this.barcode.encode(this.barcode.Encode.TEXT_TYPE,this.cadenita);
 }

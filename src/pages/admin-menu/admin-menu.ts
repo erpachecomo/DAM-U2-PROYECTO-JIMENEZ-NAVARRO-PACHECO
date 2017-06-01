@@ -1,7 +1,7 @@
 import { NativeStorage } from 'ionic-native';
 import { DishaddPage } from './../dishadd/dishadd';
 import { Component } from '@angular/core';
-import { NavController,ActionSheetController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, ActionSheetController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import firebase from 'firebase';
 
@@ -18,11 +18,21 @@ import firebase from 'firebase';
 })
 export class AdminMenuPage {
 dishes: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
+  constructor(public toastCtrl:ToastController,public navCtrl: NavController,public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController,public  af: AngularFire,public navParams: NavParams) {
       this.dishes = af.database.list('/dishes');
       
   }
+  showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      showCloseButton: true,
+      closeButtonText: 'Aceptar'
+    });
+    toast.present();
+  }
    showOptions(id, name,description,price,image,ingredients) {
+    let env = this;
+
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Opciones',
       buttons: [
@@ -31,9 +41,12 @@ dishes: FirebaseListObservable<any>;
           role: 'destructive',
           handler: () => {
             this.dishes.remove(id).then(success=>{
+              env.showToast("Borrado exitosamente");
               actionSheet.dismiss();
             },
             err =>{
+              env.showToast("Error al borrar, por favor vuelve a intentar.\nDetalle:"+err.message)
+
               console.log("Borrando :()"+JSON.stringify(err));
             });
           }

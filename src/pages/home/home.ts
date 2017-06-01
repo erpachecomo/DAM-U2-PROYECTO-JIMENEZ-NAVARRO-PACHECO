@@ -6,7 +6,7 @@ import { BillPage } from './../bill/bill';
 import { BookPage } from './../book/book';
 import { PromoPage } from './../promo/promo';
 import { Component } from '@angular/core';
-import { NavController, Alert } from 'ionic-angular';
+import { NavController, Alert, ToastController } from 'ionic-angular';
 import firebase from 'firebase';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
@@ -18,11 +18,12 @@ export class HomePage {
   options: BarcodeScannerOptions;
   results: any = {};
   res: any;
-  constructor(public navCtrl: NavController, private barcode: BarcodeScanner) {
+  constructor(public toastCtrl:ToastController,public navCtrl: NavController, private barcode: BarcodeScanner) {
 
   }
   
   logout() {
+    let env=this;
     let nav = this.navCtrl;
     
     firebase.auth().signOut().then(function () {
@@ -31,9 +32,11 @@ export class HomePage {
           console.log("HOMEPAGE");
           nav.setRoot(WelcomePage);
         }, function (error) {
+          env.showToast("Error al intentar salir, por favor vuelve a intentar.\nDetalle:"+JSON.stringify(error));
           console.log(JSON.stringify(error));
         });
     }, function (error) {
+          env.showToast("Error al intentar salir, por favor vuelve a intentar.\nDetalle: "+(error.message));      
       console.log(JSON.stringify(error));
     });
   }
@@ -57,6 +60,14 @@ export class HomePage {
   }//abrirCuenta
   abrirReservacion() {
     this.navCtrl.push(BookPage);
+  }
+  showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      showCloseButton: true,
+      closeButtonText: 'Aceptar'
+    });
+    toast.present();
   }
 }
 

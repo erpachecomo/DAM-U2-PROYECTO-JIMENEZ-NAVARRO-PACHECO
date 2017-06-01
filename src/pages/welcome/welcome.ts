@@ -2,7 +2,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { HomePage } from './../home/home';
 import { AdminPanelPage} from './../admin-panel/admin-panel';
 import { Component } from '@angular/core';
-import { NavController,LoadingController } from 'ionic-angular';
+import {ToastController, NavController,LoadingController } from 'ionic-angular';
 //import { NativeStorage,GooglePlus } from 'ionic-native';
 //import { Facebook } from '@ionic-native/facebook';
 import {Facebook, NativeStorage, GooglePlus } from 'ionic-native';
@@ -26,12 +26,13 @@ export class WelcomePage {
   users:FirebaseListObservable<any>;
   email:string='erpachecomo@ittepic.edu.mx';
   password:string='poktli123';
-  constructor(public navCtrl: NavController, af:AngularFire, private facebook:Facebook, public loadingCtrl:LoadingController) {
+  constructor(public navCtrl: NavController,public toastCtrl: ToastController, af:AngularFire, private facebook:Facebook, public loadingCtrl:LoadingController) {
         this.users = af.database.list('/users');
 
   }
   continue(){
     let nav = this.navCtrl;
+    let env = this;
     firebase.auth().signInAnonymously().then(success=>{
         NativeStorage.setItem('user',
         {
@@ -41,15 +42,19 @@ export class WelcomePage {
           console.log("Invitado");
           nav.setRoot(HomePage);
         }, function (err) {
+          env.showToast(JSON.stringify(err));
           console.log("NativeStorage Invitado: "+JSON.stringify(err));
+
         });
     },err=>{
+      env.showToast(err.message);
          console.log("NativeStorage Invitado: "+JSON.stringify(err));
     });
      
   }
 continueAsAdmin(){
   let nav = this.navCtrl;
+  let env = this;
   firebase.auth().signInWithEmailAndPassword(this.email, this.password).
   then((success) => {
             console.log("Firebase success: " + JSON.stringify(success));
@@ -67,16 +72,21 @@ continueAsAdmin(){
               console.log("AdminPanelPage");
               nav.setRoot(AdminPanelPage);
             }, function (error) {
+              env.showToast(JSON.stringify(error));
               console.log(JSON.stringify(error));
           });
               }
 
             });
             
+        },error=>{
+              env.showToast("Usuario y/o contraseña incorrecta");
+              console.log(JSON.stringify(error));
         });
 }
 
-  doFbLogin(){
+doFbLogin(){
+  let env = this;
   let nav = this.navCtrl;
   Facebook.login(['email']).then( (response) => {
         const facebookCredential = firebase.auth.FacebookAuthProvider
@@ -94,18 +104,22 @@ continueAsAdmin(){
               console.log("HOMEPAGE");
               nav.setRoot(HomePage);
             }, function (error) {
+              env.showToast(JSON.stringify(error));
               console.log(JSON.stringify(error));
           });
         })
         .catch((error) => {
+          env.showToast(error.message);
             console.log("Firebase failure: " + JSON.stringify(error));
         });
 
-    }).catch((error) => { console.log(JSON.stringify(error)) });
+    }).catch((error) => { 
+      env.showToast(JSON.stringify(error));
+      console.log(JSON.stringify(error)) });
 }
 
 
-  doGoogleLogin(){
+doGoogleLogin(){
   let nav = this.navCtrl;
   let env = this;
   let loading = this.loadingCtrl.create({
@@ -135,24 +149,34 @@ continueAsAdmin(){
               console.log("HOMEPAGE");
               nav.setRoot(HomePage);
             }, function (error) {
+              env.showToast(JSON.stringify(error));
               console.log(JSON.stringify(error));
           });
         })
         .catch((err) => {
-            console.log("Firebase failure: " + JSON.stringify(err));
-            console.log("Firebase failure: " + JSON.stringify(env.isEmpty(err)));
+            
             if(env.isEmpty(err)){
             console.log("No Problema" + JSON.stringify(err));
               
             nav.setRoot(HomePage);
           }
+          env.showToast(JSON.stringify(err.message));
         });
   }, function (error) {
+    env.showToast(JSON.stringify(error));
     console.log(JSON.stringify(error));
     loading.dismiss();
   });
 }
 
+ showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      showCloseButton: true,
+      closeButtonText: 'Aceptar'
+    });
+    toast.present();
+  }
 
 isEmpty(obj) {
 var hasOwnProperty = Object.prototype.hasOwnProperty;
