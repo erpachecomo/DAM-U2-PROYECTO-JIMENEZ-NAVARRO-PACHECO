@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Platillo de día</ion-title>
+    <ion-title>Detalle del platillo</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,13 +18,18 @@
 
   <div class="main-content">
 
-    <h2>Detalle del Platillo</h2>
+    
     <p>Nombre: {{name}}</p>
     <p>Precio: {{price}}</p>
     <p>Descripción: {{desc}}</p>
     <p>Ingredientes:</p>
-    
-    <ion-badge *ngFor="let i of ing; let j = index">{{i}} </ion-badge>
+
+    <div *ngFor="let i of ing; let j = index">
+      <br/>
+      <ion-badge>{{i}} </ion-badge>
+      
+    </div>
+
 
   </div>
 

@@ -17,17 +17,18 @@
 
 </ion-header>
 
-
-<ion-content padding>
- <ion-list>
-                   <button ion-item (click)="goToUser()">
-                    Usuarios
-                </button>
-                <button ion-item (click)="goToMenu()">
-                    Menú
-                </button>
-                <button ion-item (click)="goToOpinion()">
-                    Quejas y sugerencias
-                </button>
-            </ion-list>
+<ion-content class="card-background-page">
+    
+  <ion-card (click)='goToUser()'>
+    <img src="./assets/principal/users.png" />
+    <div class="card-title">Usuarios</div>
+  </ion-card>
+  <ion-card (click)='goToMenu()'>
+    <img src="./assets/principal/menu.jpg" />
+    <div class="card-title">Menú</div>
+  </ion-card>
+  <ion-card (click)='goToOpinion()'>
+    <img src="./assets/principal/quejas.jpg" />
+    <div class="card-title">Quejas y Sugerencias</div>
+  </ion-card>
 </ion-content>
