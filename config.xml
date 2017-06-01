@@ -76,4 +76,7 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.2.3" />
     <plugin name="phonegap-plugin-barcodescanner" spec="~6.0.6" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
+    <plugin name="cordova-plugin-googleplus" spec="~5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.19993281606-v2o5pa8plpp84gpemnfftmktlc6nu9kv" />
+    </plugin>
 </widget>

@@ -59,7 +59,9 @@ users: FirebaseListObservable<any>;
     console.log(key);
     console.log(state);
     this.users.update(key, {state:state}).then(
-        (success)=>{});
+        (success)=>{
+          
+        });
     //firebase.auth()
     //this.users.remove(uid).then();
   }

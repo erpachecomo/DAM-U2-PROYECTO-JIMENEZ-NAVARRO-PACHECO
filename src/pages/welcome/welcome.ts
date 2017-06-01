@@ -107,6 +107,7 @@ continueAsAdmin(){
 
   doGoogleLogin(){
   let nav = this.navCtrl;
+  let env = this;
   let loading = this.loadingCtrl.create({
     content: 'Please wait...'
   });
@@ -137,10 +138,11 @@ continueAsAdmin(){
               console.log(JSON.stringify(error));
           });
         })
-        .catch((error) => {
-            console.log("Firebase failure: " + JSON.stringify(error));
-            if(error==={}){
-            console.log("No Problema" + JSON.stringify(error));
+        .catch((err) => {
+            console.log("Firebase failure: " + JSON.stringify(err));
+            console.log("Firebase failure: " + JSON.stringify(env.isEmpty(err)));
+            if(env.isEmpty(err)){
+            console.log("No Problema" + JSON.stringify(err));
               
             nav.setRoot(HomePage);
           }
@@ -151,5 +153,30 @@ continueAsAdmin(){
   });
 }
 
+
+isEmpty(obj) {
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+    // null and undefined are "empty"
+    if (obj == null) return true;
+
+    // Assume if it has a length property with a non-zero value
+    // that that property is correct.
+    if (obj.length > 0)    return false;
+    if (obj.length === 0)  return true;
+
+    // If it isn't an object at this point
+    // it is empty, but it can't be anything *but* empty
+    // Is it empty?  Depends on your application.
+    if (typeof obj !== "object") return true;
+
+    // Otherwise, does it have any properties of its own?
+    // Note that this doesn't handle
+    // toString and valueOf enumeration bugs in IE < 9
+    for (var key in obj) {
+        if (hasOwnProperty.call(obj, key)) return false;
+    }
+
+    return true;
+}
 
 }

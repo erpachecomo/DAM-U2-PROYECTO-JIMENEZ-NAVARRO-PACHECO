@@ -24,6 +24,7 @@
     "@ionic-native/camera": "^3.10.3",
     "@ionic-native/core": "^3.8.1",
     "@ionic-native/facebook": "^3.8.1",
+    "@ionic-native/google-plus": "^3.10.3",
     "@ionic/storage": "2.0.0",
     "angularfire2": "^2.0.0-beta.7-pre",
     "firebase": "^3.9.0",
