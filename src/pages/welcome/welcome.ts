@@ -94,11 +94,10 @@ doFbLogin(){
         firebase.auth().signInWithCredential(facebookCredential)                                                                                                            
         .then((success) => {
             console.log("Firebase success: " + JSON.stringify(success));
-            this.userProfile = success;
+            
             NativeStorage.setItem('user',
             {
-              name: this.userProfile.displayName,
-              picture: this.userProfile.photoURL
+              name: success.displayName
             })
             .then(function(){
               console.log("HOMEPAGE");
@@ -139,11 +138,11 @@ doGoogleLogin(){
     firebase.auth().signInWithCredential(googleCredential)
         .then((success) => {
             console.log("Firebase success: " + JSON.stringify(success));
-            this.userProfile = success;
+            
             NativeStorage.setItem('user',
             {
-              name: this.userProfile.displayName,
-              picture: this.userProfile.photoURL
+              name: success.displayName,
+              picture: success.photoURL
             })
             .then(function(){
               console.log("HOMEPAGE");
